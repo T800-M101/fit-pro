@@ -1,0 +1,37 @@
+.social {
+  display: flex;
+  justify-content: var(--social-justify, space-around);
+  align-items: var(--social-align, center);
+  width: var(--social-width, 100%);
+  max-width: var(--social-max-width, 300px);
+  gap: var(--social-gap, 1rem);
+  display: var(--social-display, none);
+}
+
+.social a {
+  cursor: pointer;
+  transition: transform var(--social-transition-duration, 0.2s) ease;
+}
+
+.social a:hover {
+  transform: var(--social-hover-transform, scale(1.1));
+}
+
+.social i {
+  color: var(--social-icon-color, rgb(165, 155, 155));
+  font-size: var(--social-icon-size, 1.8rem);
+  transition: color var(--social-transition-duration, 0.2s) ease;
+}
+
+.social a:hover i {
+  color: var(--social-icon-hover-color, rgb(223, 215, 215));
+}
+
+/* Media queries for Desktop*/
+@media only screen and (min-width: 1200px) {
+  .social {
+    gap: var(--social-gap, 5rem);
+    display: var(--social-display, flex);
+  }
+
+}

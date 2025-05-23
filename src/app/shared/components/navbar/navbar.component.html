@@ -1,0 +1,40 @@
+
+<section class="contact">
+    <div class="container">
+        <div class="info-container">
+            <div class="info">
+                <p>Have any questions?</p>
+                <a [href]="'tel:' + '614 3038485'"><i class="fa-solid fa-phone"></i>+51 614 303 84 85</a>
+                <a [href]="'mailto:' + 'tuahil@gmail.com'"><i class="fa-solid fa-envelope"></i>tuahil.gmail.com</a>
+            </div>
+            <app-social></app-social>
+        </div>
+    </div>
+</section>
+<header>
+    <div class="container">
+        <section class="navbar">
+            <div class="logo">
+                <a routerLink=""><span>Be </span><div class="pipe"></div> <span>fit</span></a>
+            </div>
+
+            <div class="menu">
+                <nav>
+                    <ul>
+                        <li><a routerLink="#" routerLinkActive="active">Dashboard</a></li>
+                        <li><a routerLink="/" routerLinkActive="active" >Home</a></li>
+                        <li><a routerLink="bookings" routerLinkActive="active">Bookings</a></li>
+                        <li><a routerLink="classes" routerLinkActive="active">Classes</a></li>
+                        <li><a routerLink="plans" routerLinkActive="active">Plans</a></li>
+                        <li><a routerLink="subscription" routerLinkActive="active">Subscription</a></li>
+                        <li><a routerLink="payments" routerLinkActive="active">Payments</a></li>
+                    </ul>
+                </nav>
+            </div>
+           
+            <div class="menu-toggle" (click)="toggleMenu()">
+                  <i class="fas" [class.fa-bars]="!isOpen()" [class.fa-times]="isOpen()"></i>
+            </div>
+        </section>
+    </div>
+</header>

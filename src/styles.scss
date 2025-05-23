@@ -1,1 +1,129 @@
 /* You can add global styles to this file, and also import other style files */
+/* Base Styles */
+// :root {
+//   --primary: #ff6f00; /* Gym */
+//   --primary-dark: #e65100;
+//   --dark: #2c3e50;
+//   --light: #ffffff;
+//   --overlay: rgba(0, 0, 0, 0.5);
+//   --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+// }
+
+
+
+/* Reset default margin and padding for all elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  position: relative;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: black;
+  font-size: 1rem;
+  line-height: 1.8;
+  min-height: 100vh;
+  background-color: #ededed;
+}
+
+/*Mobile style*/
+.container {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  
+  @media (min-width: 576px) { max-width: 540px; }
+  @media (min-width: 768px) { max-width: 720px; }
+  @media (min-width: 992px) { max-width: 960px; }
+  @media (min-width: 1200px) { max-width: 1140px; }
+  @media (min-width: 1400px) { max-width: 1320px; }
+}
+
+header, footer {
+  background-color: black;
+}
+
+.sidebar-right {
+  background-color: blue;
+  color: white;
+}
+
+// h1 {
+//   color:red;
+//   margin: 0;
+// }
+
+p {
+  margin: 0;
+}
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .whatsapp-float {
+//   align-self: self-end;
+// }
+
+// .whatsapp-float a {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     width: 60px;
+//     height: 60px;
+//     background-color: #25D366;
+//     color: var(--white);
+//     border-radius: 50%;
+//     font-size: 1.8rem;
+//     box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+//     transition: var(--transition);
+//     position: relative;
+// }
+
+// .whatsapp-float a:hover {
+//     transform: scale(1.1);
+// }
+
+// .whatsapp-tooltip {
+//     position: absolute;
+//     right: 70px;
+//     background-color: black;
+//     color: var(--white);
+//     padding: 5px 15px;
+//     border-radius: 5px;
+//     font-size: 0.9rem;
+//     white-space: nowrap;
+//     opacity: 0;
+//     visibility: hidden;
+//     transition: var(--transition);
+// }
+
+// .whatsapp-float a:hover .whatsapp-tooltip {
+//     opacity: 1;
+//     visibility: visible;
+//     right: 80px;
+// }

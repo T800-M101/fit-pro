@@ -1,0 +1,64 @@
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100vw;
+    height: 20rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    width: 12rem;
+}
+
+.logo span {
+    font-weight: bold;
+    color: white;
+    font-size: 4rem;
+}
+
+.logo .pipe {
+    width: 1px; 
+    height: 4rem;
+    background-color: white;
+    margin: 0 0.5rem;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.menu ul  {
+    display: none;
+    list-style: none;
+    gap: 2rem;
+    font-size: 1.5rem;
+}
+
+.menu ul li a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu ul li a:hover {
+    color: #d26beb;
+}
+
+.footer-copyright {
+    color: rgb(165, 155, 155);
+    font-size: 1.5rem;
+}
+
+
+@media  (min-width: 576px) {
+    .menu ul {
+        display: flex;
+    } 
+}
+
+

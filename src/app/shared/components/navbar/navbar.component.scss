@@ -1,0 +1,160 @@
+/***** CONTACT STYLES *****/
+.contact {
+    background-color: black;
+
+    .info-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 5rem;
+    }
+
+    .info {
+        display: flex;
+        justify-content: space-evenly;
+        gap: 3rem;
+        font-size: 1.2rem;
+    }
+
+    .info a:hover {
+        color: #d26beb;
+    }
+    
+    p {
+        color: rgb(223, 215, 215);
+        font-size: 1.3rem;
+    }
+
+    i {
+        margin-right: 1rem;
+    }
+
+    a {
+        margin-right: 10px;
+        color: rgb(223, 215, 215);
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    a:last-of-type {
+        display: none;
+    }
+}
+
+
+/********** HEADER STYLES*********/
+header {
+    background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo span:first-of-type {
+  font-size: 4rem;
+  color: #d26beb;
+  font-weight: bold;
+}
+
+.logo span:last-of-type {
+  font-size: 4rem;
+  color: black;
+  font-weight: bold;
+}
+
+.pipe {
+  width: 1px; 
+  height: 4rem;
+  background-color: grey;
+  margin: 0 0.5rem;
+}
+
+.navbar {
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap:2rem;
+}
+
+.menu ul {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+    color: black;
+}
+
+.menu ul li {
+    display: none;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: black;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+}
+
+.menu ul li a:hover,
+.menu ul li a.active {
+    color: #d26beb;
+}
+
+.menu-toggle {
+    font-size: 3rem;
+    padding-top: 1rem;
+    color: black;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+
+@media  (min-width: 576px) {
+    
+    .menu ul {
+        display: flex;
+    } 
+
+    .contact .info-container {
+        justify-content: space-between;
+        align-items:center;
+        
+    }
+    
+    .info {
+        gap: 3rem;
+    }
+
+    .info a:last-of-type {
+        display: block;
+    }
+
+    .navbar {
+        justify-content: flex-start;
+        gap: 10rem;
+    }
+}
+
+@media  (min-width: 1200px) {
+
+    .menu ul li {
+        display: block;
+    } 
+    
+    .menu-toggle {
+        display: none;
+    }
+
+}

@@ -1,0 +1,134 @@
+.hero {
+  position: relative;       
+  width: 100%;
+  overflow: hidden;    
+}
+
+.hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero .slogan {
+  position: absolute;
+  top: 1rem;                
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;                
+  padding: 0 1rem;          
+  font-size: clamp(1.4rem, 3vw, 5rem); 
+  color: white;             
+  text-align: center;
+  z-index: 1;              
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.section-container {
+  background-image: url('/assets/people.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.stats-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-container::before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); 
+  pointer-events: none;
+}
+
+.stats-msg {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: rgb(233, 228, 228);
+}
+
+
+.stats-icons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 3rem;
+}
+
+.icons {
+  position: relative;
+  width: 100vw;
+  height: 200px;
+}
+
+.icons p {
+  position: absolute;
+}
+
+.icons i {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8rem;
+  color: #d26beb;
+}
+
+.icons p:first-of-type {
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 4rem;
+  color: white;
+  padding-top: 20px;
+}
+
+.icons p:last-of-type {
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgb(233, 228, 228);
+  font-size: 1.5rem;
+}
+
+@media  (min-width: 576px) {
+
+  .hero p {
+    font-size: 5rem;
+  }
+
+  .stats-msg {
+    font-size: 3.5rem;
+    color:  rgb(233, 228, 228);
+    margin-bottom: 3.12rem;
+  }
+
+  .stats-icons {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90vw;
+    height: 300px;
+  }
+
+  .icons p {
+    font-size: 2rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  .icons p:last-of-type {
+    bottom: 20%;
+  }
+
+  .icons i {
+      font-size: 8rem;
+  } 
+}
+
