@@ -1,6 +1,11 @@
 /***** CONTACT STYLES *****/
 .contact {
     background-color: black;
+    position: fixed;
+    top:0;
+    width: 100vw;
+    height: 50px;
+    z-index: 999;
 
     .info-container {
         display: flex;
@@ -19,7 +24,7 @@
     .info a:hover {
         color: #d26beb;
     }
-    
+
     p {
         color: rgb(223, 215, 215);
         font-size: 1.3rem;
@@ -32,7 +37,6 @@
     a {
         margin-right: 10px;
         color: rgb(223, 215, 215);
-        text-decoration: none;
         cursor: pointer;
     }
 
@@ -45,40 +49,40 @@
 /********** HEADER STYLES*********/
 header {
     background-color: white;
-    position: sticky;
-    top: 0;
+    position: fixed;
+    width: 100vw;
+    top: 50px;
     z-index: 999;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .logo a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
+    display: flex;
+    align-items: center;
 }
 
 .logo span:first-of-type {
-  font-size: 4rem;
-  color: #d26beb;
-  font-weight: bold;
+    font-size: 4rem;
+    color: #d26beb;
+    font-weight: bold;
 }
 
 .logo span:last-of-type {
-  font-size: 4rem;
-  color: black;
-  font-weight: bold;
+    font-size: 4rem;
+    color: black;
+    font-weight: bold;
 }
 
 .pipe {
-  width: 1px; 
-  height: 4rem;
-  background-color: grey;
-  margin: 0 0.5rem;
+    width: 1px;
+    height: 4rem;
+    background-color: grey;
+    margin: 0 0.5rem;
 }
 
 .navbar {
@@ -86,22 +90,42 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap:2rem;
+    gap: 2rem;
 }
 
 .menu ul {
+    position: fixed;
+    top: 150px;
+    left: -100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
-    gap: 3rem;
-    list-style: none;
-    color: black;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    transition: left 0.3s ease;
+    gap: 2.5rem;
 }
 
-.menu ul li {
-    display: none;
+.menu ul.active {
+
+    left: 0;
+}
+
+.btn-join {
+    width: 25rem;
+    border: 1px solid violet;
+    height: 5rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: black;
+    margin-top: 10px;
 }
 
 .menu ul li a {
-    text-decoration: none;
     color: black;
     transition: all 0.3s ease;
     font-size: 1.5rem;
@@ -121,40 +145,42 @@ header {
 }
 
 
-@media  (min-width: 576px) {
-    
-    .menu ul {
-        display: flex;
-    } 
+@media (min-width: 1200px) {
+
+    .btn-join {
+        display: none;
+    }
 
     .contact .info-container {
+        display: flex;
         justify-content: space-between;
-        align-items:center;
-        
-    }
-    
-    .info {
-        gap: 3rem;
     }
 
-    .info a:last-of-type {
-        display: block;
-    }
-
-    .navbar {
-        justify-content: flex-start;
-        gap: 10rem;
-    }
-}
-
-@media  (min-width: 1200px) {
-
-    .menu ul li {
-        display: block;
-    } 
-    
     .menu-toggle {
         display: none;
     }
 
+    .menu ul {
+        position: static;
+        top: auto;
+        left: auto;
+        width: auto;
+        height: auto;
+        background: transparent;
+        flex-direction: row;
+        display: flex;
+        gap: 2rem;
+        transition: none;
+        gap: 2rem;
+    }
+
+    .navbar {
+        height: 8rem;
+        padding: 0 2rem;
+    }
+
+    .menu ul li a {
+        font-size: 1.5rem;
+        padding: 0.5rem 1rem;
+    }
 }

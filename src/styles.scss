@@ -16,6 +16,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
 }
 
 html {
@@ -46,16 +48,9 @@ body {
   @media (min-width: 1400px) { max-width: 1320px; }
 }
 
+
 header, footer {
   background-color: black;
 }
 
-.sidebar-right {
-  background-color: blue;
-  color: white;
-}
-
-p {
-  margin: 0;
-}
 

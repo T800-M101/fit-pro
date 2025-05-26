@@ -20,14 +20,16 @@
 
             <div class="menu">
                 <nav>
-                    <ul>
-                        <li><a routerLink="#" routerLinkActive="active">Dashboard</a></li>
-                        <li><a routerLink="/" routerLinkActive="active" >Home</a></li>
-                        <li><a routerLink="bookings" routerLinkActive="active">Bookings</a></li>
-                        <li><a routerLink="classes" routerLinkActive="active">Classes</a></li>
-                        <li><a routerLink="plans" routerLinkActive="active">Plans</a></li>
-                        <li><a routerLink="subscription" routerLinkActive="active">Subscription</a></li>
-                        <li><a routerLink="payments" routerLinkActive="active">Payments</a></li>
+                    <ul [class.active]="isOpen()">
+                        <a routerLink="subscription" class="btn-join">Join now!</a>
+
+                        <li><a routerLink="#" routerLinkActive="active" (click)="toggleMenu()">Dashboard</a></li>
+                        <li><a routerLink="/" routerLinkActive="active" (click)="toggleMenu()" >Home</a></li>
+                        <li><a routerLink="bookings" routerLinkActive="active" (click)="toggleMenu()">Bookings</a></li>
+                        <li><a routerLink="classes" routerLinkActive="active" (click)="toggleMenu()">Classes</a></li>
+                        <li><a routerLink="plans" routerLinkActive="active" (click)="toggleMenu()">Plans</a></li>
+                        <li><a routerLink="subscription" routerLinkActive="active" (click)="toggleMenu()">Subscription</a></li>
+                        <li><a routerLink="payments" routerLinkActive="active" (click)="toggleMenu()">Payments</a></li>
                     </ul>
                 </nav>
             </div>

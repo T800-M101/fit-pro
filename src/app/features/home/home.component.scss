@@ -25,10 +25,12 @@
 }
 
 .section-container {
-  background-image: url('/assets/people.jpg');
-  background-position: center;
+  background-image: url('/assets/peopleAt.jpg');
+  // background-position:center;
   background-repeat: no-repeat;
-  background-size: cover;
+  // background-size: cover;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 .stats-content {
@@ -38,16 +40,16 @@
   align-items: center;
 }
 
-.section-container::before {
-  content: '';
-  position: absolute;
-  top: 0px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4); 
-  pointer-events: none;
-}
+// .section-container::before {
+//   content: '';
+//   position: absolute;
+//   top: 0px;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: rgba(0, 0, 0, 0.4); 
+//   pointer-events: none;
+// }
 
 .stats-msg {
   font-size: 1.8rem;
