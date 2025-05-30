@@ -45,8 +45,23 @@ footer {
     cursor: pointer;
 }
 
-.menu ul li a:hover {
+.menu ul li a:hover,
+.social i:hover {
     color: #d26beb;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    width: 100%;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.social i {
+    color: rgb(165, 155, 155);
 }
 
 .footer-copyright {
@@ -55,7 +70,7 @@ footer {
 }
 
 
-@media  (min-width: 576px) {
+@media  (min-width: 1200px) {
     .menu ul {
         display: flex;
     } 
