@@ -1,1 +1,73 @@
-<p>subscription works!</p>
+<div class="container">
+  <div class="title">Registration</div>
+  <div class="content">
+
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <div class="user-details">
+        <div class="input-box">
+          <label for="name" class="details"> Name</label>
+          <input type="text" formControlName="name" placeholder="Enter your full name">
+        </div>
+
+        <div class="input-box">
+          <label for="username" class="details"> Username</label>
+          <input type="text" formControlName="username" placeholder="Enter your username">
+        </div>
+
+        <div class="input-box">
+          <label for="email" class="details"> Email</label>
+          <input type="email" formControlName="email" placeholder="Enter your email">
+        </div>
+
+        <div class="input-box">
+          <label for="phone" class="details"> Phone number</label>
+          <input type="text" formControlName="phone" placeholder="Enter your phone number">
+        </div>
+
+        <div class="input-box">
+          <label for="password" class="details"> Password</label>
+          <input type="password" formControlName="password" placeholder="Enter a password" autocomplete="new-password">
+        </div>
+
+        <div class="input-box">
+          <label for="confirm" class="details"> Confirm Password </label>
+          <input type="password" formControlName="confirmPassword" placeholder="Confirm your password">
+        </div>
+
+        <div class="input-box">
+          <label for="gender">Gender</label>
+          <select id="gender" formControlName="gender">
+            <option value="" disabled>Select your gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="prefer_not_to_say">Prefer not to say</option>
+          </select>
+        </div>
+
+        <div class="input-box">
+          <label for="membership">Memebership</label>
+          <select id="membership" formControlName="membership">
+            <option value="" disabled>Select your membership</option>
+            <option value="premium">Premium</option>
+            <option value="standard">Standard</option>
+            <option value="basic">Basic</option>
+          </select>
+        </div>
+
+        <div class="checkbox-info">
+          <input type="checkbox" id="email-info" formControlName="wantsEmailUpdates">
+          <label for="email-info">I agree to receive more info from BeFit by email</label>
+        </div>
+  
+  
+        <div class="checkbox-info">
+          <input type="checkbox" id="whatsapp-info" formControlName="wantsWhatsAppUpdates">
+          <label for="whatsapp-info">I agree to receive more info from BeFit by WhatsApp</label>
+        </div>
+      </div>
+
+
+      <button class="btn-submit">Register</button>
+    </form>
+  </div>
+</div>

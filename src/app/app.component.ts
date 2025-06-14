@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { WhatsappComponent } from "./shared/components/whatsapp/whatsapp.component";
+import { NavigationService } from './shared/services/navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,6 @@ import { WhatsappComponent } from "./shared/components/whatsapp/whatsapp.compone
 })
 export class AppComponent {
   title = 'fit-pro';
+  constructor(private navigationService: NavigationService) {}
+
 }

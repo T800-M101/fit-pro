@@ -5,8 +5,8 @@
                 <p class="questions">Have any questions?</p>
                 <a href="tel:6143038485" class="tel"><i class="fa-solid fa-phone"></i><span class="text">+51 614 303 84
                         85</span></a>
-                <a href="mailto:tuahil@gmail.com" class="email"><i class="fa-solid fa-envelope"></i><span
-                        class="text">tuahil.com</span></a>
+                <a href="mailto:befit@gmail.com" class="email"><i class="fa-solid fa-envelope"></i><span
+                        class="text">befit.com</span></a>
             </div>
             <div class="social">
                 <a href="#">
@@ -25,21 +25,24 @@
 
     <nav>
         <div class="container nav-flex">
-            <div class="logo">
-                <a routerLink=""><span>Be </span>
-                    <div class="pipe"></div><span>fit</span>
-                </a>
-            </div>
+            
+            <div class="logo"><span>Be</span> <span>fit</span></div>
+            
             <ul [class.active]="isOpen()">
                 <li><a routerLink="subscription" class="btn-join" (click)="toggleMenu()">Join now!</a></li>
                 <li><a routerLink="#" routerLinkActive="active" (click)="toggleMenu()">Dashboard</a></li>
                 <li><a routerLink="/" routerLinkActive="active" (click)="toggleMenu()">Home</a></li>
                 <li><a routerLink="bookings" routerLinkActive="active" (click)="toggleMenu()">Bookings</a></li>
                 <li><a routerLink="classes" routerLinkActive="active" (click)="toggleMenu()">Classes</a></li>
-                <li><a routerLink="plans" routerLinkActive="active" (click)="toggleMenu()">Plans</a></li>
+                <li><a routerLink="plans" routerLinkActive="active" (click)="toggleMenu()">Your Space</a></li>
                 <li><a routerLink="subscription" routerLinkActive="active" (click)="toggleMenu()">Subscription</a></li>
-                <li><a routerLink="payments" routerLinkActive="active" (click)="toggleMenu()">Payments</a></li>
+                <!-- <li><a routerLink="payments" routerLinkActive="active" (click)="toggleMenu()">Payments</a></li> -->
             </ul>
+
+            @if(navigationService.url() !== '/subscription') {
+                <a routerLink="subscription" class="btn-join-desktop">Join now!</a>
+            }
+
             <div class="menu-toggle" (click)="toggleMenu()">
                 <i class="fas fa-bars"></i>
             </div>

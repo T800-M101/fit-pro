@@ -8,7 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './bookings.component.scss'
 })
 export class BookingsComponent {
-hola(){
-  console.log('hola')
-}
+
 }

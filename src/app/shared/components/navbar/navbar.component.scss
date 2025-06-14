@@ -8,6 +8,31 @@ header {
     z-index: 999;
 }
 
+.logo {
+    font-size: 3.7rem;
+    font-weight: bold;
+    color: black;
+    position: relative;
+    padding-left: 1.2rem;
+    width:150px;
+}
+
+.logo span {
+    padding-right: 10px;
+    color: var(--purple);
+}
+
+.logo span::after {
+  content: '';
+  position: absolute;
+  left: 45%;
+  top: 20%;
+  height: 60%;
+  width: 1px; 
+  background-color: grey;
+  transform: translateX(-50%);
+}
+
 .info-container {
     display: flex;
     flex-direction: column;
@@ -63,11 +88,11 @@ header {
 }
 
 .social i {
-    color: va(--social);
+    color: var(--purple);
 }
 
 .social i:hover {
-    color: var(--purple);
+    color: var(--white);
 }
 
 /************ NAV SECTION **********/
@@ -127,6 +152,11 @@ nav ul li a.active {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.btn-join:hover {
+    background-color: var(--purple);
+    color: var(--white);
+}
+
 .logo {
     display: flex;
     align-items: center;
@@ -165,6 +195,11 @@ nav ul li a.active {
     cursor: pointer;
 }
 
+.desktop-join-desktop {
+  display: none;
+}
+
+
 
 /*********************** MOBILE **************************************/
 
@@ -178,6 +213,14 @@ nav ul li a.active {
     .info-container {
         background-color: var(--black);
     }
+
+    
+
+.logo span::after {
+  
+  left: 55%;
+  
+}
 
     .info-flex {
         flex-direction: column;
@@ -202,7 +245,7 @@ nav ul li a.active {
 
     .info .tel i,
     .info .email i {
-        color: var(--social);
+        color: white;
     }
 
     .social {
@@ -245,4 +288,45 @@ nav ul li a.active {
         display: none;
     }
 
+    .mobile-join {
+    display: none;
+  }
+
+  .btn-join-desktop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--purple);
+    padding: 0.8rem 2rem;
+    border-radius: 1rem;
+    color: var(--black);
+    background-color: transparent;
+    font-size: 1.5rem;
+    margin-left: auto;
+    transition: all 0.3s ease;
+    width: 50rem;
+    height: 4rem;
+    transition: all 0.15s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+  }
+
+  .btn-join-desktop:hover {
+    background-color: var(--purple);
+    color: var(--white);
+  }
+
 }
+
+
+// display: inline-block;
+//     border: 1px solid var(--purple);
+//     width: 28.5rem;
+//     height: 4rem;
+//     border-radius: 1rem; 
+//     text-align: center;
+//     padding-top: .5rem;
+//     margin-bottom: 2rem;
+//     cursor: pointer;
+//     transition: all 0.15s ease-in-out;
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

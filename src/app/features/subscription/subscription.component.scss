@@ -1,0 +1,149 @@
+/* ===== Base (Mobile-First) Styles ===== */
+.container {
+  max-width: 700px;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--white);
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 25px 30px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.container .title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 500;
+  color: var(--purple);
+}
+
+.content form .user-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+}
+
+form .user-details .input-box {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.user-details .input-box input {
+  height: 45px;
+  width: 100%;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding-left: 15px;
+  font-size: 16px;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+
+.user-details .input-box input:focus {
+  border-color: #9b59b6;
+}
+
+.input-box select {
+  height: 45px;
+  width: 100%;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding-left: 15px;
+  font-size: 16px;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+  background-color: var(--white);
+  color: #333;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20fill%3D%22%239b59b6%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2224%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M7%2010l5%205%205-5z%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 18px 18px;
+}
+
+.input-box select:focus {
+  border-color: #9b59b6;
+}
+
+.checkbox-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.btn-submit {
+  height: 40px;
+  width: 100%;
+  margin-top: 30px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  background-color: var(--purple);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.btn-submit:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Desktop Overrides ===== */
+@media screen and (min-width: 1200px) {
+  .container {
+    height: 80vh;
+  }
+
+  .content form .user-details {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  form .user-details .input-box {
+    width: calc(50% - 20px);
+  }
+
+  .checkbox-info {
+    font-size: 1.5rem;
+  }
+}
+
+
+@media screen and (max-width: 412px) {
+  .container {
+    padding: 20px 15px;
+    height: auto;
+    /* allow content to grow */
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .container .title {
+    font-size: 2.2rem;
+  }
+
+  .checkbox-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .btn-submit {
+    font-size: 1.1rem;
+    height: 45px;
+  }
+}

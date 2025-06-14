@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +11,8 @@ import { RouterModule } from '@angular/router';
 })
 export class NavbarComponent {
   isMenuOpen = signal(false);
+
+  constructor(public navigationService: NavigationService){}
 
   toggleMenu() {
     this.isMenuOpen.set(!this.isOpen());
