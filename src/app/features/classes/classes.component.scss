@@ -1,0 +1,131 @@
+/* Container grid */
+.container {
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* was 280px */
+  gap: 2.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card style */
+.class-card {
+  background: white;
+  border-radius: 1.2rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.class-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+}
+
+/* Image */
+.class-card img {
+  width: 100%;
+  height: 200px; 
+  object-fit: cover;
+}
+
+/* Class name */
+.class-name {
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.5rem; /* was 1.3rem */
+    letter-spacing: 0.05rem;
+}
+
+.yoga {
+    background-color: #6abf69;
+}
+
+.zumba {
+    background-color: #ff4081;
+}
+
+.crossfit {
+    background-color: #ff6f00;
+}
+
+.cycling {
+    background-color: #2196f3;
+}
+
+.boxing {
+    background-color: #d32f2f;
+}
+
+.pilates {
+    background-color: #9575cd;
+}
+
+/* Info section */
+.class-info {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 1.2rem 2rem;
+  border-bottom: 1px solid #eee;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #6a3ab7;
+  font-weight: 600;
+  font-size: 1.1rem; /* was 1rem */
+}
+
+.info-item i {
+  font-size: 1.6rem; /* was 1.4rem */
+}
+
+/* Description */
+.class-description {
+  padding: 1.2rem 2rem;
+  font-size: 1.2rem; /* was 1rem */
+  color: #444;
+  flex-grow: 1;
+  text-align: left;
+}
+
+/* Enroll button */
+.btn-enroll {
+  margin: 1.2rem 2rem 2rem;
+  padding: 14px 0;
+  background-color: var(--purple);
+  color: white;
+  border: none;
+  font-weight: 700;
+  font-size: 1.15rem;
+  border-radius: 8px;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.btn-enroll:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .class-info {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .info-item {
+    font-size: 1rem;
+  }
+}
+

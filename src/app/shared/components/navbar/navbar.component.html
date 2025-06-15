@@ -29,17 +29,19 @@
             <div class="logo"><span>Be</span> <span>fit</span></div>
             
             <ul [class.active]="isOpen()">
-                <li><a routerLink="subscription" class="btn-join" (click)="toggleMenu()">Join now!</a></li>
+                @if( !['/subscription', '/your-space'].includes(navigationService.url())) {
+                    <li><a routerLink="subscription" class="btn-join" (click)="toggleMenu()">Join now!</a></li>
+                }
                 <li><a routerLink="#" routerLinkActive="active" (click)="toggleMenu()">Dashboard</a></li>
                 <li><a routerLink="/" routerLinkActive="active" (click)="toggleMenu()">Home</a></li>
                 <li><a routerLink="bookings" routerLinkActive="active" (click)="toggleMenu()">Bookings</a></li>
                 <li><a routerLink="classes" routerLinkActive="active" (click)="toggleMenu()">Classes</a></li>
-                <li><a routerLink="plans" routerLinkActive="active" (click)="toggleMenu()">Your Space</a></li>
+                <li><a routerLink="your-space" routerLinkActive="active" (click)="toggleMenu()">Your Space</a></li>
                 <li><a routerLink="subscription" routerLinkActive="active" (click)="toggleMenu()">Subscription</a></li>
                 <!-- <li><a routerLink="payments" routerLinkActive="active" (click)="toggleMenu()">Payments</a></li> -->
             </ul>
 
-            @if(navigationService.url() !== '/subscription') {
+            @if( !['/subscription', '/your-space'].includes(navigationService.url())) {
                 <a routerLink="subscription" class="btn-join-desktop">Join now!</a>
             }
 

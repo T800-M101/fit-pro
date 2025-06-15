@@ -1,6 +1,6 @@
 <section class="hero">
   <p class="slogan">relax <span>|</span> have fun <span>|</span> work out</p>
-  <img src="assets/press.jpg" alt="hero">
+  <img src="assets/leg-press.jpg" alt="hero">
 </section>
   
 
@@ -14,46 +14,46 @@
             <div class="price">
               <h2>Premium</h2>
               <h3><span>$</span>50</h3>
-              <p class="value">Full access to all gym facilities and classes.</p>
+              <p class="description">Full access to all gym facilities and classes.</p>
             </div>
             <ul>
-              <li>Unlimited access to gym equipment</li>
-              <li>Group classes (yoga, spinning, HIIT, etc.)</li>
-              <li>Sauna/steam room</li>
-              <li>Personal training sessions</li>
-              <li>Pool and spa (if available)</li>
+              <li><i class="far fa-check-circle"></i>Unlimited access to gym equipment</li>
+              <li><i class="far fa-check-circle"></i>Group classes (yoga, spinning, HIIT, etc.)</li>
+              <li><i class="far fa-check-circle"></i>Sauna/steam room</li>
+              <li><i class="far fa-check-circle"></i>Personal training sessions</li>
+              <li><i class="far fa-check-circle"></i>Pool and spa (if available)</li>
             </ul>
 
-            <button class="btn-signup">Sign up now</button>
+            <button class="btn-signup" (click)="goToSubscription('premium')">Sign up now</button>
         </div>
 
         <div class="card standard">
             <div class="price">
               <h2>Standard</h2>
               <h3><span>$</span>30</h3>
-              <p class="value">Access to most core gym services.</p>
+              <p class="description">Access to most core gym services.</p>
             </div>
             <ul>
-              <li>Unlimited access to gym equipment</li>
-              <li>Limited group classes (2–3/week)</li>
-              <li>Access during regular hours</li>
-              <li class="not-included">No premium amenities</li>
+              <li><i class="far fa-check-circle"></i>Unlimited access to gym equipment</li>
+              <li><i class="far fa-check-circle"></i>Limited group classes (2–3/week)</li>
+              <li><i class="far fa-check-circle"></i>Access during regular hours</li>
+              <li><i class="fa-solid fa-ban"></i>No premium amenities</li>
             </ul>
-            <button class="btn-signup">Sign up now</button>
+            <button class="btn-signup" (click)="goToSubscription('standard')">Sign up now</button>
         </div>
 
         <div class="card basic">
             <div class="price">
               <h2>Basic</h2>
               <h3><span>$</span>20</h3>
-              <p class="value">Entry-level option for occasional users.</p>
+              <p class="description">Entry-level option for occasional users.</p>
             </div>
             <ul>
-              <li>Unlimited access to gym equipment</li>
-              <li class="not-included">No classes or amenities</li>
-              <li>Ideal for beginners or budget-conscious users</li>
+              <li><i class="far fa-check-circle"></i>Unlimited access to gym equipment</li>
+              <li><i class="far fa-check-circle"></i>Ideal for beginners or budget-conscious users</li>
+              <li><i class="fa-solid fa-ban"></i>No classes or amenities</li>
             </ul>
-            <button class="btn-signup">Sign up now</button>
+            <button class="btn-signup" (click)="goToSubscription('basic')">Sign up now</button>
         </div>
     </div>
   </div>

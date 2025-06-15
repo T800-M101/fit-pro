@@ -26,7 +26,7 @@
 
 .section-container {
   position: relative;
-  background-image: url('/assets/personAtGym.jpg');
+  background-image: url('/assets/girlAtGym.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -99,6 +99,7 @@
   color: rgb(233, 228, 228);
   font-size: 1.5rem;
 }
+
 /********************************** CARDS *************************************/
 
 .title {
@@ -111,104 +112,123 @@
 }
 
 .membership-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    padding: 40px 20px;
-    cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 40px 20px;
+  cursor: pointer;
 }
 
 .card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    background-color: white;
-    text-align: center;
-    border-radius: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    width: 300px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  }
-
-   .price {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1.5px solid var(--purple);
-    margin-bottom: 20px;
-    width: 25rem;
-
-
-    p {
-      font-size: 1.1rem;
-    }
-
-    span {
-      font-size: 1.5rem;
-      vertical-align: top;       
-      position: relative;
-      top: 15px;               
-      margin-right: 2px;
-    }
-   
-    h2 {
-      font-size: 3rem;
-    }
-
-    h3 {
-      font-size: 4rem;
-      color: var(--purple);
-    } 
-
-  }
-  
-  .card .value {
-    font-style: italic;
-    margin-bottom: 1rem;
-    color: #555;
-  }
-
-  .card ul {
-    list-style: none;
-    padding: 10px;
-  }
-
-  .card ul li {
-    margin-bottom: 2rem;
-    font-size: 1rem;
-    color: #333;
-  }
-
-.card ul li[class="not-included"] {
-  font-weight: bold;
-  color: #c0392b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  text-align: center;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-  .btn-signup {
-    background-color: var(--purple);
-    border: none;
-    border-radius: 5px;
-    padding: 10px 5px;
-    width: 150px;
-    color:var(--white);
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1.5px solid var(--purple);
+  margin-bottom: 20px;
+  width: 25rem;
+
+
+  p {
+    font-size: 1.1rem;
   }
 
-  .btn-signup:active {
-    transform: translateY(2px) scale(0.98);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* optional: smaller shadow */
+  span {
+    font-size: 1.5rem;
+    vertical-align: top;
+    position: relative;
+    top: 15px;
+    margin-right: 2px;
   }
+
+  h2 {
+    font-size: 3rem;
+  }
+
+  h3 {
+    font-size: 4rem;
+    color: var(--purple);
+  }
+
+}
+
+.card .description {
+  font-style: italic;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.card ul {
+  list-style: none;
+  padding: 5px;
+  width: 300px;
+  padding-left: 30px;
+}
+
+.card ul li {
+  display: flex;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.card ul li i {
+  margin-right: 0.5rem;
+}
+
+
+/* amenity included */
+
+.fa-check-circle,
+.fa-ban {
+  font-size: 1.8rem;
+  color: green;
+}
+
+/* amenity not included*/
+.fa-ban {
+  color: grey;
+}
+
+
+
+.btn-signup {
+  background-color: var(--purple);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 5px;
+  width: 150px;
+  color: var(--white);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.btn-signup:active {
+  transform: translateY(2px) scale(0.98);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* optional: smaller shadow */
+}
 
 
 /****************************** MOBILE *******************************/
@@ -232,6 +252,10 @@
     background-size: cover;
     padding-top: 10rem;
     padding-bottom: 10rem;
+  }
+
+  ul {
+    height: 150px;
   }
 }
 

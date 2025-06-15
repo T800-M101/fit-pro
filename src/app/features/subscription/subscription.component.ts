@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavigationService } from '../../shared/services/navigation.service';
 
 @Component({
@@ -10,10 +10,12 @@ import { NavigationService } from '../../shared/services/navigation.service';
   templateUrl: './subscription.component.html',
   styleUrl: './subscription.component.scss'
 })
-export class SubscriptionComponent {
+export class SubscriptionComponent implements OnInit{
+  cardType: string = '';
+
   registrationForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private navigationService: NavigationService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
     
     this.registrationForm = this.fb.group({
       name: ['', ],
@@ -28,6 +30,24 @@ export class SubscriptionComponent {
       wantsWhatsAppUpdates: [false]
     });
   }
+  
+  ngOnInit(): void {
+  this.route.queryParams.subscribe(params => {
+    this.cardType = params['type'] || '';
+
+    console.log('Card selected:', this.cardType);
+
+    if (this.cardType) {
+      this.registrationForm.patchValue({
+        membership: this.cardType
+      });
+    } else {
+      this.registrationForm.patchValue({
+        membership: ''
+      });
+    }
+  });
+}
 
   onSubmit(): void {
     this.registrationForm.markAllAsTouched();

@@ -1,0 +1,71 @@
+<!-- Modal Backdrop -->
+<div class="modal-backdrop" id="bookingModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Book a {{bookingService.bookedClass() | titlecase}} Class</h2>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+        @if (showTooltip) {
+            <div class="tooltip-bubble">
+                <span>⚠️</span> Please remember to cancel if you can't attend. Repeated no-shows may limit future bookings.
+            </div>
+        }
+      <p>Select a time slot for your class this week:</p>
+
+      <!-- Weekly Calendar Grid -->
+      <div class="calendar-grid">
+        <!-- Dynamic content: you would replace this with data-driven rendering -->
+        <div class="day">
+          <h4>Monday</h4>
+          <button class="time-slot">6:00 AM</button>
+          <button class="time-slot">7:00 AM</button>
+          <button class="time-slot">8:00 AM</button>
+          <button class="time-slot">6:00 PM</button>
+          
+        </div>
+        <div class="day">
+          <h4>Tuesday</h4>
+          <button class="time-slot">6:00 AM</button>
+          <button class="time-slot">7:00 AM</button>
+          <button class="time-slot">8:00 AM</button>
+          <button class="time-slot">6:00 PM</button>
+        </div>
+        <div class="day">
+          <h4>Wednesday</h4>
+          <button class="time-slot">6:00 AM</button>
+          <button class="time-slot">7:00 AM</button>
+          <button class="time-slot">8:00 AM</button>
+          <button class="time-slot">6:00 PM</button>
+        </div>
+        <div class="day">
+          <h4>Thursday</h4>
+          <button class="time-slot">6:00 AM</button>
+          <button class="time-slot">7:00 AM</button>
+          <button class="time-slot">8:00 AM</button>
+          <button class="time-slot">6:00 PM</button>
+        </div>
+        <div class="day">
+          <h4>Friday</h4>
+          <button class="time-slot">6:00 AM</button>
+          <button class="time-slot">7:00 AM</button>
+          <button class="time-slot">8:00 AM</button>
+          <button class="time-slot">6:00 PM</button>
+        </div>
+        <div class="day">
+          <h4>Saturday</h4>
+          <button class="time-slot">6:00 AM</button>
+          <button class="time-slot">7:00 AM</button>
+          <button class="time-slot">8:00 AM</button>
+          <button class="time-slot">6:00 PM</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="confirm-btn" (click)="confirmBooking()">Confirm Booking</button>
+    </div>
+  </div>
+</div>
+

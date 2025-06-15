@@ -1,1 +1,122 @@
-<p>classes works!</p>
+<section class="container">
+  <div class="class-card">
+    <img src="assets/yoga.jpg" alt="Yoga class" />
+    <div class="class-name yoga">Yoga</div>
+    <div class="class-info">
+      <div class="info-item">
+        <i class="fa-regular fa-clock"></i>
+        <span>60 mins</span>
+      </div>
+      <div class="info-item">
+        <i class="fa-solid fa-battery-quarter"></i>
+        <span>Medium intensity</span>
+      </div>
+    </div>
+    <p class="class-description">
+      A calming class focusing on flexibility, breathing, and mindfulness.
+    </p>
+    <button class="btn-enroll" (click)="bookClass('yoga')">Book Class</button>
+  </div>
+
+  <div class="class-card">
+    <img src="assets/pilates.jpg" alt="pilates class" />
+    <div class="class-name pilates">Pilates</div>
+    <div class="class-info">
+      <div class="info-item">
+        <i class="fa-regular fa-clock"></i>
+        <span>60 mins</span>
+      </div>
+      <div class="info-item">
+        <i class="fa-solid fa-battery-half"></i>
+        <span>High intensity</span>
+      </div>
+    </div>
+    <p class="class-description">
+      A low-impact workout that focuses on strengthening your core, improving posture, flexibility, and body awareness through controlled movements and breathing techniques. Ideal for all fitness levels.
+    </p>
+    <button class="btn-enroll" (click)="bookClass('pilates')">Book Class</button>
+  </div>
+
+  <div class="class-card">
+    <img src="assets/zumba.png" alt="Zumba class" />
+    <div class="class-name zumba">Zumba</div>
+    <div class="class-info">
+      <div class="info-item">
+        <i class="fa-regular fa-clock"></i>
+        <span>60 mins</span>
+      </div>
+      <div class="info-item">
+        <i class="fa-solid fa-battery-full"></i>
+        <span>High intensity</span>
+      </div>
+    </div>
+    <p class="class-description">
+      A fun, dance-based cardio class with Latin rhythms to get your heart pumping.
+    </p>
+    <button class="btn-enroll" (click)="bookClass('zumba')">Book Class</button>
+  </div>
+
+    <div class="class-card">
+    <img src="assets/crossfit.jpg" alt="ccrossfit class" />
+    <div class="class-name crossfit">CrossFit</div>
+    <div class="class-info">
+      <div class="info-item">
+        <i class="fa-regular fa-clock"></i>
+        <span>45 mins</span>
+      </div>
+      <div class="info-item">
+        <i class="fa-solid fa-battery-full"></i>
+        <span>High intensity</span>
+      </div>
+    </div>
+    <p class="class-description">
+      A high-intensity training program that combines weightlifting, cardio, and functional movements to build strength, endurance, and agility. Designed to challenge all fitness levels and push your physical limits.
+    </p>
+    <button class="btn-enroll" (click)="bookClass('crossfit')">Book Class</button>
+  </div>
+
+    <div class="class-card">
+    <img src="assets/indoor-cycling.png" alt="indoor cycling class" />
+    <div class="class-name cycling">Indoor Cycling</div>
+    <div class="class-info">
+      <div class="info-item">
+        <i class="fa-regular fa-clock"></i>
+        <span>45 mins</span>
+      </div>
+      <div class="info-item">
+        <i class="fa-solid fa-battery-full"></i>
+        <span>High intensity</span>
+      </div>
+    </div>
+    <p class="class-description">
+      A high-energy cardio workout set to motivating music, focusing on endurance, strength, and interval training using stationary bikes. Great for burning calories, building lower-body strength, and boosting heart health.
+    </p>
+    <button class="btn-enroll" (click)="bookClass('cycling')">Book Class</button>
+  </div>
+
+    <div class="class-card">
+    <img src="assets/boxing.jpg" alt="boxing class" />
+    <div class="class-name boxing">Boxing</div>
+    <div class="class-info">
+      <div class="info-item">
+        <i class="fa-regular fa-clock"></i>
+        <span>45 mins</span>
+      </div>
+      <div class="info-item">
+        <i class="fa-solid fa-battery-full"></i>
+        <span>High intensity</span>
+      </div>
+    </div>
+    <p class="class-description">
+      A dynamic full-body workout that combines punching techniques, footwork, and conditioning drills. Ideal for building strength, improving coordination, relieving stress, and boosting cardiovascular fitness—all while learning real boxing skills.
+    </p>
+    <button class="btn-enroll" (click)="bookClass('boxing')">Book Class</button>
+  </div>
+
+    
+</section>
+
+
+@if(this.bookingService.showModal()) {
+    <app-book-class-modal></app-book-class-modal>
+}
