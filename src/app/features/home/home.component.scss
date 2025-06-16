@@ -1,3 +1,5 @@
+/********************************* MOBILE STYLES *******************************************/
+/****************** HERO ********************/
 .hero {
   position: relative;
   width: 100%;
@@ -24,83 +26,8 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-.section-container {
-  position: relative;
-  background-image: url('/assets/girlAtGym.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
 
-.stats-content {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.section-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  pointer-events: none;
-}
-
-.stats-msg {
-  font-size: 1.8rem;
-  text-align: center;
-  margin-bottom: 2rem;
-  color: var(--info);
-}
-
-
-.stats-icons {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  gap: 3rem;
-}
-
-.icons {
-  position: relative;
-  width: 100vw;
-  height: 20rem;
-}
-
-.icons p {
-  position: absolute;
-}
-
-.icons i {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 8rem;
-  color: var(--purple);
-}
-
-.icons p:first-of-type {
-  top: 30%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 4rem;
-  color: var(--white);
-  padding-top: 2rem;
-}
-
-.icons p:last-of-type {
-  bottom: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  color: rgb(233, 228, 228);
-  font-size: 1.5rem;
-}
-
-/********************************** CARDS *************************************/
+/********************************** MEMBERSHIP CARDS *************************************/
 
 .title {
   text-align: center;
@@ -210,7 +137,82 @@
   color: grey;
 }
 
+/************************ NUMBERS SECTION *********************************/
+.numbers-section {
+  position: relative;
+  background-image: url('/assets/girlAtGym.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
 
+.stats-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.numbers-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.stats-msg {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--info);
+}
+
+
+.stats-icons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 3rem;
+}
+
+.icons {
+  position: relative;
+  width: 100vw;
+  height: 20rem;
+}
+
+.icons p {
+  position: absolute;
+}
+
+.icons i {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8rem;
+  color: var(--purple);
+}
+
+.icons p:first-of-type {
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 4rem;
+  color: var(--white);
+  padding-top: 2rem;
+}
+
+.icons p:last-of-type {
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgb(233, 228, 228);
+  font-size: 1.5rem;
+}
 
 .btn-signup {
   background-color: var(--purple);
@@ -231,9 +233,181 @@
 }
 
 
-/****************************** MOBILE *******************************/
-@media (min-width: 576px) {
+/**************************** INSTRUCTORS SECTION *****************************************/
 
+/* Carousel container */
+.carousel-container {
+  position: relative;
+  margin: 2rem 0;
+}
+
+/* Carousel scroll */
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem 0;
+  gap: 1rem;
+  scrollbar-width: none; /* Firefox */
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Instructor card */
+.instructor-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  flex: 0 0 85%;
+  max-width: 85%;
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+/* Image */
+.card-content .image {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.card-content .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Card content */
+.card-content {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Social icons */
+.media-icons {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 0.5rem 0;
+}
+
+.media-icons i {
+  font-size: 2rem;
+  color: #6a3ab7;
+  transition: transform 0.2s ease;
+}
+
+.media-icons i:hover {
+  transform: scale(1.2);
+  color: #4e278f;
+}
+
+/* Text */
+.name-profession {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 2rem;
+  color: #333;
+}
+
+.profession {
+  font-size: 1.5rem;
+  color: #777;
+}
+
+/* Rating */
+.rating {
+  text-align: center;
+  color: #ffc107;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+/* Button */
+.button {
+  text-align: center;
+  margin-top: auto;
+}
+
+.aboutMe {
+  padding: 0.5rem 1.5rem;
+  background: #6a3ab7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.aboutMe:hover {
+  background: #4e278f;
+}
+
+/* Carousel buttons */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6a3ab7;
+  transition: all 0.3s ease;
+}
+
+.carousel-btn:hover {
+  background: #6a3ab7;
+  color: white;
+}
+
+.prev-btn {
+  left: 0;
+}
+
+.next-btn {
+  right: 0;
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/****************************** DESKTOP STYLES *******************************/
+
+
+@media (min-width: 576px) {
+  
+/************************* NUMBERS SECTION ********************************/
   .stats-msg {
     font-size: 3.5rem;
     margin-bottom: 3.12rem;
@@ -245,7 +419,7 @@
     width: 90vw;
   }
 
-  .section-container {
+  .numbers-section {
     background-image: url('/assets/peopleAtGym.jpg');
     background-repeat: no-repeat;
     background-position: center 20%;
@@ -257,5 +431,81 @@
   ul {
     height: 150px;
   }
-}
 
+  /************************** INSTRUCTORS SECTION **********************************/
+
+  .container h2 {
+    text-align: center;
+    font-size: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  .media-icons i {
+    font-size: 2rem;
+    color: #6a3ab7;
+    transition: transform 0.2s ease;
+  }
+
+  .media-icons i:hover {
+    transform: scale(1.2);
+    color: #4e278f;
+  }
+
+  /* RATING */
+  .rating {
+    color: #ffc107;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  /* HOVER EFFECTS */
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .instructor-card {
+    scroll-snap-align: start;
+    flex: 0 0 400px;
+  }
+
+  /* CAROUSEL BUTTONS */
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6a3ab7;
+    transition: all 0.3s ease;
+  }
+
+  .carousel-btn:hover {
+    background: #6a3ab7;
+    color: white;
+  }
+
+  .prev-btn {
+    left: -20px;
+  }
+
+  .next-btn {
+    right: -20px;
+  }
+
+  /* Disable buttons when at extremes */
+  .carousel-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
