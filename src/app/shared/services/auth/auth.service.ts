@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthState } from './auth-enum';
 import { RegisterUserDto } from '../../../interfaces/register-user.interface';
+import { ChangePasswordDTO } from '../../../interfaces/change-password.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class AuthService {
   private baseUrl = 'http://localhost:3000';
   private tokenKey = 'token';
   private jwtHelper = new JwtHelperService();
+ 
 
   userName = signal<string | null>(this.extractNameFromToken());
   authState = signal<AuthState>(this.getAuthState());
@@ -99,7 +101,7 @@ updateAuthState(): void {
       tap((response) => {
         if (response.token) {
           this.saveToken(response.token);
-          this.updateAuthState(); // Update state after registration
+          this.updateAuthState();
         }
       })
     );
@@ -120,12 +122,19 @@ private startTokenMonitor(): void {
     clearTimeout(this.tokenMonitor);
   }
 
-  // Set a timeout to update the auth state or logout
+
   this.tokenMonitor = setTimeout(() => {
     this.updateAuthState();
-    // Optional: auto-logout
     this.logout();
   }, expiresInMs);
+}
+
+requestPasswordReset(email: string): Observable<any> {
+  return this.http.post(`${this.baseUrl}/auth/request-password-reset`, { email });
+}
+
+resetPassword(dto: { token: string; newPassword: string; }): Observable<any> {
+    return this.http.put(`${this.baseUrl}/auth/reset-password`, dto);
 }
 
 }

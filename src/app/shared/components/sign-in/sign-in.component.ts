@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
-import { NavigationService } from '../../services/navigation/navigation.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,7 +19,11 @@ import { NavigationService } from '../../services/navigation/navigation.service'
 export class SignInComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService, 
+    private router: Router, 
+    private toastr: ToastrService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -32,6 +36,7 @@ onSubmit(): void {
 
       this.authService.login(data).subscribe({
         next: (response) => {
+          this.toastr.success('User logged in successcully!');
           const token = response?.token;
 
           if (token) {
@@ -42,6 +47,7 @@ onSubmit(): void {
           }
         },
         error: (err) => {
+          this.toastr.error('Something went wrong.');
           console.error('Login failed:', err);
         }
       });

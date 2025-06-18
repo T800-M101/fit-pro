@@ -56,6 +56,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'pass-recovery',
+    loadComponent: () =>
+      import('./features/password-recovery/password-recovery.component').then(
+        (m) => m.PasswordRecoveryComponent
+      ),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
