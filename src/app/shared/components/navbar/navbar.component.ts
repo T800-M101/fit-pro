@@ -1,24 +1,36 @@
 import { Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NavigationService } from '../../services/navigation.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { CommonModule } from '@angular/common';
+import { NavigationService } from '../../services/navigation/navigation.service';
+import { AuthState } from '../../services/auth/auth-enum';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
   isMenuOpen = signal(false);
+  userName: string | null = null;
+  AuthState = AuthState;
 
-  constructor(public navigationService: NavigationService){}
+  constructor(
+    public authService: AuthService,
+    public navigationService: NavigationService
+  ) {}
 
-  toggleMenu() {
+  authState(): any {
+    return this.authService.getAuthState();
+  }
+
+  toggleMenu(): void {
     this.isMenuOpen.set(!this.isOpen());
   }
 
-  isOpen() {
-  return this.isMenuOpen();
-}
+  isOpen(): boolean {
+    return this.isMenuOpen();
+  }
 }

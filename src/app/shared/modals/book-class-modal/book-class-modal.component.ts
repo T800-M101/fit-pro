@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BookingService } from '../../services/booking.service';
+import { BookingService } from '../../services/booking/booking.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,11 +7,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './book-class-modal.component.html',
-  styleUrl: './book-class-modal.component.scss'
+  styleUrl: './book-class-modal.component.scss',
 })
-export class BookClassModalComponent implements OnInit{
+export class BookClassModalComponent implements OnInit {
   showTooltip = true;
-  constructor(public bookingService: BookingService){}
+  constructor(public bookingService: BookingService) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -22,7 +22,6 @@ export class BookClassModalComponent implements OnInit{
   confirmBooking(): void {
     this.bookingService.showModal.set(false);
   }
-
 
   closeModal(): void {
     this.bookingService.showModal.set(false);

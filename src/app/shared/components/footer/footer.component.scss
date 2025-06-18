@@ -6,23 +6,29 @@ footer {
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    width: 12rem;
+    font-size: 3.7rem;
+    font-weight: bold;
+    color: black;
+    position: relative;
+    padding-left: 1.2rem;
+    width: 150px;
+    cursor: pointer;
 }
 
 .logo span {
-    font-weight: bold;
-    color: white;
-    font-size: 4rem;
+    padding-right: 10px;
+    color: var(--white);
 }
 
-.logo .pipe {
-    width: 1px; 
-    height: 4rem;
-    background-color: white;
-    margin: 0 0.5rem;
+.logo span::after {
+    content: '';
+    position: absolute;
+    left: 42%;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background-color: var(--white);
+    transform: translateX(-50%);
 }
 
 .flex {

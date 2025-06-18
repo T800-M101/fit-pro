@@ -1,0 +1,102 @@
+
+.login-section {
+  padding: 3rem 1rem; // Increased padding around the section
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  .container {
+    max-width: 700px; // Wider form
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .login-card {
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    padding: 3rem; // More inner space
+    margin-bottom: 17rem;
+
+    .title {
+      font-size: 2.5rem; // Bigger title
+      margin-bottom: 1rem;
+      color: var(--purple, var(--purple));
+      text-align: center;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #666;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          font-weight: 600;
+          margin-bottom: 0.4rem;
+          font-size: 1rem;
+        }
+
+        input {
+          padding: 0.8rem 1.2rem; // Larger input area
+          border: 1px solid #ccc;
+          border-radius: 0.6rem;
+          font-size: 1.1rem;
+        }
+      }
+
+      .btn-login {
+        background: var(--purple);
+        color: white;
+        border: none;
+        padding: 1rem;
+        border-radius: 0.6rem;
+        font-size: 1.1rem;
+        transition: transform 0.1s ease, box-shadow 0.1s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+
+        &:active {
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        &:disabled {
+          background: #ccc;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    .signup-link {
+      margin-top: 1.5rem;
+      text-align: center;
+
+      a {
+        color: var(--purple, #5a3eaa);
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+
+    small {
+      display: block;
+    }
+  }
+}

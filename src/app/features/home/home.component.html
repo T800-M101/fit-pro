@@ -77,39 +77,39 @@
       </button>
       <div class="carousel">
         @for(instructor of instructors; track instructor.id) {
-        <div class="instructor-card">
-          <div class="card-content">
-            <div class="image">
-              <img [src]="instructor.photo" [alt]="instructor.name">
-            </div>
-            <!-- Social media icons -->
-            <div class="media-icons">
-              <i class="fab fa-facebook"></i>
-              <i class="fab fa-twitter"></i>
-              <i class="fab fa-github"></i>
-            </div>
+          <div class="instructor-card">
+            <div class="card-content">
+              <div class="image">
+                <img [src]="instructor.photo" [alt]="instructor.name">
+              </div>
+              <!-- Social media icons -->
+              <div class="media-icons">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-github"></i>
+              </div>
 
-            <!-- Name and profession -->
-            <div class="name-profession">
-              <span class="name">{{instructor.name}}</span>
-              <span class="profession">{{instructor.profession}}</span>
-            </div>
+              <!-- Name and profession -->
+              <div class="name-profession">
+                <span class="name">{{instructor.name}}</span>
+                <span class="profession">{{instructor.profession}}</span>
+              </div>
 
-            <!-- Rating -->
-            <div class="rating">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-            </div>
+              <!-- Rating -->
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
 
-            <!-- Buttons -->
-            <div class="button">
-              <button class="aboutMe">About Me</button>
+              <!-- Buttons -->
+              <div class="button">
+                <button class="aboutMe">About Me</button>
+              </div>
             </div>
           </div>
-        </div>
         }
       </div>
       <button class="carousel-btn next-btn" aria-label="Next">

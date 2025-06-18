@@ -1,0 +1,37 @@
+
+  <section class="login-section">
+    <div class="container">
+      <div class="login-card">
+        <h2 class="title">Welcome Back</h2>
+        <p class="subtitle">ready to work out?</p>
+  
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input formControlName="email" type="email" id="email" placeholder="Enter your email"/>
+            @if(loginForm.get('email')?.invalid && loginForm.get('email')?.touched ){
+              @if(loginForm.get('email')?.errors?.['required']){
+                <small class="error">Email is required.</small>
+              }
+  
+              @if(loginForm.get('email')?.errors?.['email']){
+                <small class="error">Enter a valid email.</small>
+              }
+            }
+          </div>
+  
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input formControlName="password" type="password" id="password" placeholder="Enter your password" autocomplete="new-password"/>
+          </div>
+  
+          <button type="submit" class="btn-login" [disabled]="loginForm.invalid">Login</button>
+        </form>
+  
+        <div class="signup-link">
+          <p>Don’t have an account? <a routerLink="/subscription">Sign up</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+

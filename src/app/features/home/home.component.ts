@@ -2,9 +2,9 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CountUpComponent } from '../../shared/components/count-up/count-up.component';
 import { Router } from '@angular/router';
 import { Instructor } from '../../interfaces/instructor.interface';
-import { InstructorsService } from '../../shared/services/instructors.service';
-import { UsersService } from '../../shared/services/users.service';
-import { MembershipService } from '../../shared/services/membership.service';
+import { InstructorsService } from '../../shared/services/instructors/instructors.service';
+import { UsersService } from '../../shared/services/users/users.service';
+import { MembershipService } from '../../shared/services/membership/membership.service';
 import { Membership } from '../../interfaces/membership.interface';
 
 @Component({
@@ -14,23 +14,28 @@ import { Membership } from '../../interfaces/membership.interface';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit, AfterViewInit{
-  
-instructors: Instructor[] = [];
-memberships: Membership[] = []; 
-totalUsers = 0;
+export class HomeComponent implements OnInit, AfterViewInit {
+  instructors: Instructor[] = [];
+  memberships: Membership[] = [];
+  totalUsers = 0;
 
   constructor(
-    private router: Router, 
-    private instructorsService: InstructorsService, 
+    private router: Router,
+    private instructorsService: InstructorsService,
     private usersService: UsersService,
     private membershipService: MembershipService
   ) {}
 
   ngOnInit(): void {
-    this.instructorsService.getInstructors().subscribe(data => this.instructors = data);
-    this.usersService.getTotalUsers().subscribe(count => this.totalUsers = count);
-    this.membershipService.getMembershipPlans().subscribe(data => this.memberships = data);    
+    this.instructorsService
+      .getInstructors()
+      .subscribe((data) => (this.instructors = data));
+    this.usersService
+      .getTotalUsers()
+      .subscribe((count) => (this.totalUsers = count));
+    this.membershipService
+      .getMembershipPlans()
+      .subscribe((data) => (this.memberships = data));
   }
 
   ngAfterViewInit() {
@@ -50,7 +55,8 @@ totalUsers = 0;
       // Disable buttons when at extremes
       carousel.addEventListener('scroll', () => {
         prevBtn.disabled = carousel.scrollLeft <= 10;
-        nextBtn.disabled = carousel.scrollLeft >= 
+        nextBtn.disabled =
+          carousel.scrollLeft >=
           carousel.scrollWidth - carousel.clientWidth - 10;
       });
     }

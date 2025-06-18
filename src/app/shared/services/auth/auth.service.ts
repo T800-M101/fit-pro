@@ -1,0 +1,95 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthState } from './auth-enum';
+import { RegisterUserDto } from '../../../interfaces/register-user.interface';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthService {
+  private baseUrl = 'http://localhost:3000';
+  private tokenKey = 'token';
+  private jwtHelper = new JwtHelperService();
+
+  userName = signal<string | null>(this.extractNameFromToken());
+  authState = signal<AuthState>(this.getAuthState());
+
+  saveToken(token: string): void {
+    localStorage.setItem(this.tokenKey, token);
+  }
+
+  removeToken(): void {
+    localStorage.removeItem(this.tokenKey);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
+  }
+
+  isTokenValid(): boolean {
+    const token = this.getToken();
+    // Check token validation
+    return this.jwtHelper.isTokenExpired(token) ? false : true;
+  }
+
+  extractNameFromToken(): string | null {
+    const token = this.getToken();
+    if (!token || this.jwtHelper.isTokenExpired(token)) return null;
+
+    const decoded = this.jwtHelper.decodeToken(token);
+    const fullName: string = decoded?.name;
+    if (!fullName) return null;
+
+    return fullName.trim().split(/\s+/)[0];
+  }
+
+getAuthState(): AuthState {
+  const token = this.getToken();
+  if (!token) return AuthState.NotRegistered;
+  if (this.jwtHelper.isTokenExpired(token)) return AuthState.Expired;
+  return AuthState.Authenticated;
+}
+
+
+  constructor(private router: Router, private http: HttpClient) {
+    // Initialize state on service creation
+    this.updateAuthState();
+  }
+
+  // Add this method to update both state and username together
+  private updateAuthState(): void {
+  this.authState.set(this.getAuthState());
+  this.userName.set(this.extractNameFromToken());
+}
+
+  login(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/auth/login`, data).pipe(
+      tap((response) => {
+        if (response.token) {
+          this.saveToken(response.token);
+          this.updateAuthState();
+        }
+      })
+    );
+  }
+
+  logout(): void {
+    this.removeToken();
+    this.updateAuthState();
+    this.router.navigate(['/']);
+  }
+
+  register(data: RegisterUserDto): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/auth/register`, data).pipe(
+      tap((response) => {
+        if (response.token) {
+          this.saveToken(response.token);
+          this.updateAuthState(); // Update state after registration
+        }
+      })
+    );
+  }
+}
