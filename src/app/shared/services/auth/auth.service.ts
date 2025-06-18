@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -17,14 +17,17 @@ export class AuthService {
   userName = signal<string | null>(this.extractNameFromToken());
   authState = signal<AuthState>(this.getAuthState());
   userRole = signal<string | null>(this.extractRoleFromToken());
+  
 
   constructor(private router: Router, private http: HttpClient) {
     this.updateAuthState();
+    this.startTokenMonitor();
   }
 
 
   saveToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
+    this.startTokenMonitor();
   }
 
   removeToken(): void {
@@ -60,7 +63,7 @@ export class AuthService {
   return role ?? null;
 }
 
-getAuthState(): AuthState {
+ getAuthState(): AuthState {
   const token = this.getToken();
   if (!token) return AuthState.NotRegistered;
   if (this.jwtHelper.isTokenExpired(token)) return AuthState.Expired;
@@ -68,7 +71,7 @@ getAuthState(): AuthState {
 }
 
 
-private updateAuthState(): void {
+updateAuthState(): void {
   this.authState.set(this.getAuthState());
   this.userName.set(this.extractNameFromToken());
   this.userRole.set(this.extractRoleFromToken());
@@ -101,4 +104,28 @@ private updateAuthState(): void {
       })
     );
   }
+
+  private tokenMonitor: any = null;
+
+private startTokenMonitor(): void {
+  const token = this.getToken();
+  if (!token) return;
+
+  const expirationDate = this.jwtHelper.getTokenExpirationDate(token);
+  if (!expirationDate) return;
+
+  const expiresInMs = expirationDate.getTime() - new Date().getTime();
+
+  if (this.tokenMonitor) {
+    clearTimeout(this.tokenMonitor);
+  }
+
+  // Set a timeout to update the auth state or logout
+  this.tokenMonitor = setTimeout(() => {
+    this.updateAuthState();
+    // Optional: auto-logout
+    this.logout();
+  }, expiresInMs);
+}
+
 }

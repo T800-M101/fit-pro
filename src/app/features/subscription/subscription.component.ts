@@ -41,9 +41,12 @@ export class SubscriptionComponent implements OnInit {
         ],
       ],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^\+?[0-9]{7,15}$/)]],
+      phone: [
+        '',
+        [Validators.required, Validators.pattern(/^\+?[0-9]{7,15}$/)],
+      ],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required, Validators.minLength(6)],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       gender: ['', Validators.required],
       membership: ['', Validators.required],
       role: ['user'],
@@ -75,10 +78,17 @@ export class SubscriptionComponent implements OnInit {
       const userDTO = mapperDto(this.registrationForm.value);
       this.authService.register(userDTO).subscribe({
         next: (res: any) => {
+          const token = res?.token;
+          if (token) {
+            this.authService.saveToken(token);
+          } else {
+            console.error('No token received');
+          }
+
           this.toastr.success('User registered successfully!');
           this.registrationForm.reset();
           setTimeout(() => {
-            this.router.navigate(['/']);
+            this.router.navigate(['/classes']);
           }, 2000);
         },
         error: (err: any) => {
@@ -94,55 +104,54 @@ export class SubscriptionComponent implements OnInit {
     return !!(control && control.invalid && (control.touched || control.dirty));
   }
 
-getErrorMessage(controlName: string): string {
-  const control = this.registrationForm.get(controlName);
-  if (!control || !control.errors) return '';
+  getErrorMessage(controlName: string): string {
+    const control = this.registrationForm.get(controlName);
+    if (!control || !control.errors) return '';
 
-  if (control.errors['required']) {
-    switch (controlName) {
-      case 'name':
-        return 'Name is required';
-      case 'username':
-        return 'Username is required';
-      case 'email':
-        return 'Email is required';
-      case 'email':
-      return 'Phone is required';
-      case 'password':
-        return 'Password is required';
-      case 'confirmPassword':
-        return 'Please confirm your password';
-      case 'gender':
-        return 'Please select a gender';
-      case 'membership':
-        return 'Please select a membership';
-      default:
-        return 'This field is required';
+    if (control.errors['required']) {
+      switch (controlName) {
+        case 'name':
+          return 'Name is required';
+        case 'username':
+          return 'Username is required';
+        case 'email':
+          return 'Email is required';
+        case 'email':
+          return 'Phone is required';
+        case 'password':
+          return 'Password is required';
+        case 'confirmPassword':
+          return 'Please confirm your password';
+        case 'gender':
+          return 'Please select a gender';
+        case 'membership':
+          return 'Please select a membership';
+        default:
+          return 'This field is required';
+      }
     }
-  }
 
-  if (control.errors['email']) return 'Invalid email format';
+    if (control.errors['email']) return 'Invalid email format';
 
-  if (control.errors['minlength']) {
-    const requiredLength = control.errors['minlength'].requiredLength;
-    return `Minimum length is ${requiredLength} characters`;
-  }
-
-  if (control.errors['maxlength']) {
-    const requiredLength = control.errors['maxlength'].requiredLength;
-    return `Maximum length is ${requiredLength} characters`;
-  }
-
-  if (control.errors['pattern']) {
-    switch (controlName) {
-      case 'phone':
-        return 'Phone number must be valid (e.g., +1234567890)';
-      default:
-        return 'Invalid format';
+    if (control.errors['minlength']) {
+      const requiredLength = control.errors['minlength'].requiredLength;
+      return `Minimum length is ${requiredLength} characters`;
     }
+
+    if (control.errors['maxlength']) {
+      const requiredLength = control.errors['maxlength'].requiredLength;
+      return `Maximum length is ${requiredLength} characters`;
+    }
+
+    if (control.errors['pattern']) {
+      switch (controlName) {
+        case 'phone':
+          return 'Phone number must be valid (e.g., +1234567890)';
+        default:
+          return 'Invalid format';
+      }
+    }
+
+    return 'Invalid input';
   }
-
-  return 'Invalid input';
-}
-
 }

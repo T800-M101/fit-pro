@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, computed, OnInit } from '@angular/core';
 import { CountUpComponent } from '../../shared/components/count-up/count-up.component';
 import { Router } from '@angular/router';
 import { Instructor } from '../../interfaces/instructor.interface';
@@ -6,6 +6,7 @@ import { InstructorsService } from '../../shared/services/instructors/instructor
 import { UsersService } from '../../shared/services/users/users.service';
 import { MembershipService } from '../../shared/services/membership/membership.service';
 import { Membership } from '../../interfaces/membership.interface';
+import { AuthService } from '../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -19,11 +20,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
   memberships: Membership[] = [];
   totalUsers = 0;
 
+ shouldDisableSignup = computed(() => this.authService.isTokenValid());
+
+
   constructor(
     private router: Router,
     private instructorsService: InstructorsService,
     private usersService: UsersService,
-    private membershipService: MembershipService
+    private membershipService: MembershipService,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {

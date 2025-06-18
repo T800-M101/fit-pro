@@ -1,9 +1,8 @@
-import { Component, effect } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { WhatsappComponent } from './shared/components/whatsapp/whatsapp.component';
-import { NavigationService } from './shared/services/navigation/navigation.service';
 import { AuthService } from './shared/services/auth/auth.service';
 
 @Component({
@@ -16,12 +15,8 @@ import { AuthService } from './shared/services/auth/auth.service';
 export class AppComponent {
   title = 'fit-pro';
 
-  constructor(private navigationService: NavigationService, private authService: AuthService) {
-    effect(() => {
-      this.authService.authState();
-      this.authService.extractNameFromToken();
-
-    })
+  constructor(private authService: AuthService) {
+   this.authService.updateAuthState();
   }
 
 }

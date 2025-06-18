@@ -101,11 +101,8 @@ form .user-details .input-box {
 }
 
 .btn-submit:disabled {
-  background-color: #ccc;      /* light grey */
-  color: #666;                 /* darker grey text */
-  cursor: no-drop;         /* show forbidden cursor */
-  opacity: 0.6;                /* slightly transparent */
-  pointer-events: none;        /* prevent any interaction */
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* ===== Desktop Overrides ===== */
