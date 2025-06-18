@@ -6,4 +6,5 @@ export interface RegisterUserDto {
     password: string;
     gender: string;
     membershipType: string;
+    role:string;
 }

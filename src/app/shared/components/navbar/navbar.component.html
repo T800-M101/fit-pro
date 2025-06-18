@@ -36,7 +36,9 @@
                 }
 
                 }
-                <li><a routerLink="#" routerLinkActive="active" (click)="toggleMenu()">Dashboard</a></li>
+                @if( authService.userRole() === Role.Employee || authService.userRole() === Role.Admin){
+                    <li><a routerLink="#" routerLinkActive="active" (click)="toggleMenu()">Dashboard</a></li>
+                }
                 <li><a routerLink="/" routerLinkActive="active" (click)="toggleMenu()">Home</a></li>
                 <li><a routerLink="classes" routerLinkActive="active" (click)="toggleMenu()">Classes</a></li>
                 <li><a routerLink="your-space" routerLinkActive="active" (click)="toggleMenu()">Your Space</a></li>
@@ -73,3 +75,4 @@
         </div>
     </nav>
 </header>
+

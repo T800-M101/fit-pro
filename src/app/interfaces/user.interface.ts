@@ -7,6 +7,7 @@ export interface User {
     password: string;
     gender: string;
     memebership: string;
+    role:string;
     allow_email: boolean;
     allow_whatsapp: boolean;
 }

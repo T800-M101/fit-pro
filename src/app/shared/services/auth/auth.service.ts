@@ -16,6 +16,12 @@ export class AuthService {
 
   userName = signal<string | null>(this.extractNameFromToken());
   authState = signal<AuthState>(this.getAuthState());
+  userRole = signal<string | null>(this.extractRoleFromToken());
+
+  constructor(private router: Router, private http: HttpClient) {
+    this.updateAuthState();
+  }
+
 
   saveToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
@@ -31,7 +37,6 @@ export class AuthService {
 
   isTokenValid(): boolean {
     const token = this.getToken();
-    // Check token validation
     return this.jwtHelper.isTokenExpired(token) ? false : true;
   }
 
@@ -46,6 +51,15 @@ export class AuthService {
     return fullName.trim().split(/\s+/)[0];
   }
 
+  extractRoleFromToken(): string | null {
+  const token = this.getToken();
+  if (!token || this.jwtHelper.isTokenExpired(token)) return null;
+
+  const decoded = this.jwtHelper.decodeToken(token);
+  const role: string = decoded?.role;
+  return role ?? null;
+}
+
 getAuthState(): AuthState {
   const token = this.getToken();
   if (!token) return AuthState.NotRegistered;
@@ -54,15 +68,10 @@ getAuthState(): AuthState {
 }
 
 
-  constructor(private router: Router, private http: HttpClient) {
-    // Initialize state on service creation
-    this.updateAuthState();
-  }
-
-  // Add this method to update both state and username together
-  private updateAuthState(): void {
+private updateAuthState(): void {
   this.authState.set(this.getAuthState());
   this.userName.set(this.extractNameFromToken());
+  this.userRole.set(this.extractRoleFromToken());
 }
 
   login(data: any): Observable<any> {

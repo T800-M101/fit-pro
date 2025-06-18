@@ -11,6 +11,10 @@
   margin-bottom: 100px;
 }
 
+.warning {
+  color: red;
+}
+
 .container .title {
   text-align: center;
   font-size: 3rem;
@@ -38,7 +42,6 @@ form .user-details .input-box {
   border: 1px solid #ccc;
   padding-left: 15px;
   font-size: 16px;
-  border-bottom-width: 2px;
   transition: all 0.3s ease;
 }
 
@@ -54,7 +57,6 @@ form .user-details .input-box {
   border: 1px solid #ccc;
   padding-left: 15px;
   font-size: 16px;
-  border-bottom-width: 2px;
   transition: all 0.3s ease;
   background-color: var(--white);
   color: #333;
@@ -96,6 +98,14 @@ form .user-details .input-box {
 .btn-submit:active {
   transform: translateY(2px) scale(0.98);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-submit:disabled {
+  background-color: #ccc;      /* light grey */
+  color: #666;                 /* darker grey text */
+  cursor: no-drop;         /* show forbidden cursor */
+  opacity: 0.6;                /* slightly transparent */
+  pointer-events: none;        /* prevent any interaction */
 }
 
 /* ===== Desktop Overrides ===== */

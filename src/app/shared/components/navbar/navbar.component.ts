@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { NavigationService } from '../../services/navigation/navigation.service';
-import { AuthState } from '../../services/auth/auth-enum';
+import { AuthState, Role } from '../../services/auth/auth-enum';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +16,7 @@ export class NavbarComponent {
   isMenuOpen = signal(false);
   userName: string | null = null;
   AuthState = AuthState;
+  Role = Role;
 
   constructor(
     public authService: AuthService,
