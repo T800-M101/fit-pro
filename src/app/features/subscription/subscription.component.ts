@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RegisterUserDto } from '../dto/register-user';
 import { Role } from '../../shared/services/auth/auth-enum';
 import { mapperDto } from '../../shared/utils/mapperDto';
+import { passwordMatchValidator } from '../../shared/utils/password-match-validator';
 
 @Component({
   selector: 'app-subscription',
@@ -21,8 +22,23 @@ import { mapperDto } from '../../shared/utils/mapperDto';
   styleUrl: './subscription.component.scss',
 })
 export class SubscriptionComponent implements OnInit {
+  @ViewChild('passwordInput') passwordInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('passwordInputConfirm') passwordInputConfirm!: ElementRef<HTMLInputElement>;
+
   private membership: string = '';
   registrationForm: FormGroup;
+
+
+togglePassword(msg: string) {
+  if(msg === 'password') {
+    const input = this.passwordInput.nativeElement;
+    input.type = input.type === 'password' ? 'text' : 'password';
+  } 
+  if (msg === 'confirm'){
+    const input = this.passwordInputConfirm.nativeElement;
+    input.type = input.type === 'password' ? 'text' : 'password';
+  }
+}
 
   constructor(
     private fb: FormBuilder,
@@ -54,7 +70,11 @@ export class SubscriptionComponent implements OnInit {
       role: [Role.User],
       allowEmail: [false],
       allowWhats: [false],
-    });
+    },
+    {
+      validators: passwordMatchValidator('password', 'confirmPassword')
+    }
+  );
   }
 
   ngOnInit(): void {

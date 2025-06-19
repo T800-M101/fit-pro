@@ -23,6 +23,7 @@
           <div class="form-group">
             <label for="password">Password</label>
             <input formControlName="password" type="password" id="password" placeholder="Enter your password" autocomplete="new-password"/>
+             @if(isInvalid('password')){<span class="error">{{ getErrorMessage('password') }}</span>}
           </div>
   
           <button type="submit" class="btn-login" [disabled]="loginForm.invalid">Login</button>

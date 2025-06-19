@@ -54,4 +54,61 @@ onSubmit(): void {
       });
     }
   }
+
+   isInvalid(controlName: string): boolean {
+    const control = this.loginForm.get(controlName);
+    return !!(control && control.invalid && (control.touched || control.dirty));
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.loginForm.get(controlName);
+    if (!control || !control.errors) return '';
+
+    if (control.errors['required']) {
+      switch (controlName) {
+        case 'name':
+          return 'Name is required';
+        case 'username':
+          return 'Username is required';
+        case 'email':
+          return 'Email is required';
+        case 'email':
+          return 'Phone is required';
+        case 'password':
+          return 'Password is required';
+        case 'confirmPassword':
+          return 'Please confirm your password';
+        case 'gender':
+          return 'Please select a gender';
+        case 'membership':
+          return 'Please select a membership';
+        default:
+          return 'This field is required';
+      }
+    }
+
+    if (control.errors['email']) return 'Invalid email format';
+
+    if (control.errors['minlength']) {
+      const requiredLength = control.errors['minlength'].requiredLength;
+      return `Minimum length is ${requiredLength} characters`;
+    }
+
+    if (control.errors['maxlength']) {
+      const requiredLength = control.errors['maxlength'].requiredLength;
+      return `Maximum length is ${requiredLength} characters`;
+    }
+
+    if (control.errors['pattern']) {
+      switch (controlName) {
+        case 'phone':
+          return 'Phone number must be valid (e.g., +1234567890)';
+        default:
+          return 'Invalid format';
+      }
+    }
+
+    return 'Invalid input';
+  }
+
 }

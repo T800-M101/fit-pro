@@ -8,23 +8,23 @@
           <label for="name" class="details"> Name</label>
           <input type="text" formControlName="name" placeholder="Enter your full name">
           @if(isInvalid('name')){
-            <span class="warning">{{ getErrorMessage('name') }}</span>
+          <span class="error">{{ getErrorMessage('name') }}</span>
           }
         </div>
 
         <div class="input-box">
           <label for="username" class="details"> Username</label>
           <input type="text" formControlName="username" placeholder="Enter your username">
-           @if(isInvalid('username')){
-            <span class="warning">{{ getErrorMessage('username') }}</span>
+          @if(isInvalid('username')){
+          <span class="error">{{ getErrorMessage('username') }}</span>
           }
         </div>
 
         <div class="input-box">
           <label for="email" class="details"> Email</label>
           <input type="email" formControlName="email" placeholder="Enter your email">
-           @if(isInvalid('email')){
-            <span class="warning">{{ getErrorMessage('email') }}</span>
+          @if(isInvalid('email')){
+          <span class="error">{{ getErrorMessage('email') }}</span>
           }
         </div>
 
@@ -32,23 +32,43 @@
           <label for="phone" class="details"> Phone number</label>
           <input type="text" formControlName="phone" placeholder="Enter your phone number">
           @if(isInvalid('password')){
-            <span class="warning">{{ getErrorMessage('phone') }}</span>
+          <span class="error">{{ getErrorMessage('phone') }}</span>
           }
         </div>
 
         <div class="input-box">
           <label for="password" class="details"> Password</label>
-          <input type="password" formControlName="password" placeholder="Enter a password" autocomplete="new-password">
-           @if(isInvalid('password')){
-            <span class="warning">{{ getErrorMessage('password') }}</span>
-          }
+          <div class="password-wrapper">
+            <input type="password" formControlName="password" placeholder="Enter a password" autocomplete="new-password"
+              #passwordInput>
+            <span class="toggle-password" (click)="togglePassword('password')">
+              <i class="fa-solid " [class.fa-eye]="passwordInput.type !== 'password'"
+                [class.fa-eye-slash]="passwordInput.type === 'password'"
+                [class.active-eye]="passwordInput.type !== 'password'"></i>
+            </span>
+          </div>
+          @if(isInvalid('password')){<span class="error">{{ getErrorMessage('password') }}</span>}
         </div>
 
         <div class="input-box">
           <label for="confirm" class="details"> Confirm Password </label>
-          <input type="password" formControlName="confirmPassword" placeholder="Confirm your password">
-           @if(isInvalid('confirmPassword')){
-            <span class="warning">{{ getErrorMessage('confirmPassword') }}</span>
+          <div class="password-wrapper">
+            <input type="password" formControlName="confirmPassword" placeholder="Confirm your password"
+              #passwordInputConfirm>
+            <span class="toggle-password" (click)="togglePassword('confirm')">
+              <i class="fa-solid " [class.fa-eye]="passwordInputConfirm.type !== 'password'"
+                [class.fa-eye-slash]="passwordInputConfirm.type === 'password'"
+                [class.active-eye]="passwordInputConfirm.type !== 'password'"></i>
+            </span>
+          </div>
+          @if(isInvalid('confirmPassword')){
+          <span class="error">{{ getErrorMessage('confirmPassword') }}</span>
+          }
+          @if (
+          registrationForm.errors?.['passwordMismatch'] &&
+          registrationForm.get('confirmPassword')?.touched
+          ) {
+          <span class="error">Passwords do not match.</span>
           }
         </div>
 
@@ -60,8 +80,8 @@
             <option value="female">Female</option>
             <option value="prefer_not_to_say">Prefer not to say</option>
           </select>
-           @if(isInvalid('gender')){
-            <span class="warning">{{ getErrorMessage('gender') }}</span>
+          @if(isInvalid('gender')){
+          <span class="error">{{ getErrorMessage('gender') }}</span>
           }
         </div>
 
@@ -73,8 +93,8 @@
             <option value="standard">Standard</option>
             <option value="basic">Basic</option>
           </select>
-           @if(isInvalid('membership')){
-            <span class="warning">{{ getErrorMessage('membership') }}</span>
+          @if(isInvalid('membership')){
+          <span class="error">{{ getErrorMessage('membership') }}</span>
           }
         </div>
 
@@ -82,8 +102,8 @@
           <input type="checkbox" id="email-info" formControlName="wantsEmail">
           <label for="email-info">I agree to receive more info from BeFit by email</label>
         </div>
-  
-  
+
+
         <div class="checkbox-info">
           <input type="checkbox" id="whatsapp-info" formControlName="wantsWhatsApp">
           <label for="whatsapp-info">I agree to receive more info from BeFit by WhatsApp</label>

@@ -19,7 +19,7 @@
     margin-bottom: 17rem;
 
     .title {
-      font-size: 2.5rem; // Bigger title
+      font-size: 2.5rem; 
       margin-bottom: 1rem;
       color: var(--purple, var(--purple));
       text-align: center;
@@ -51,7 +51,8 @@
           padding: 0.8rem 1.2rem; // Larger input area
           border: 1px solid #ccc;
           border-radius: 0.6rem;
-          font-size: 1.1rem;
+          font-size: 16px;
+          height: 45px;
         }
       }
 
@@ -64,6 +65,7 @@
         font-size: 1.1rem;
         transition: transform 0.1s ease, box-shadow 0.1s ease;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        height: 40px;
         cursor: pointer;
 
         &:active {
