@@ -7,9 +7,11 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
-import { mapperDto } from '../../shared/utils/mapper-dto';
 import { NavigationService } from '../../shared/services/navigation/navigation.service';
 import { ToastrService } from 'ngx-toastr';
+import { RegisterUserDto } from '../dto/register-user';
+import { Role } from '../../shared/services/auth/auth-enum';
+import { mapperDto } from '../../shared/utils/mapperDto';
 
 @Component({
   selector: 'app-subscription',
@@ -19,7 +21,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './subscription.component.scss',
 })
 export class SubscriptionComponent implements OnInit {
-  private membershipType: string = '';
+  private membership: string = '';
   registrationForm: FormGroup;
 
   constructor(
@@ -49,19 +51,19 @@ export class SubscriptionComponent implements OnInit {
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       gender: ['', Validators.required],
       membership: ['', Validators.required],
-      role: ['user'],
-      wantsEmailUpdates: [false],
-      wantsWhatsAppUpdates: [false],
+      role: [Role.User],
+      allowEmail: [false],
+      allowWhats: [false],
     });
   }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.membershipType = params['type'] || '';
+      this.membership = params['type'] || '';
 
-      if (this.membershipType) {
+      if (this.membership) {
         this.registrationForm.patchValue({
-          membership: this.membershipType,
+          membership: this.membership,
         });
       } else {
         this.registrationForm.patchValue({
@@ -75,7 +77,8 @@ export class SubscriptionComponent implements OnInit {
     this.registrationForm.markAllAsTouched();
     if (this.registrationForm.valid) {
       this.authService.removeToken();
-      const userDTO = mapperDto(this.registrationForm.value);
+      const userDTO = mapperDto(this.registrationForm.value, RegisterUserDto);
+
       this.authService.register(userDTO).subscribe({
         next: (res: any) => {
           const token = res?.token;

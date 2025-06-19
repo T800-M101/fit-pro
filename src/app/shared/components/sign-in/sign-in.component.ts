@@ -43,6 +43,7 @@ onSubmit(): void {
             this.authService.saveToken(token);
             this.router.navigate(['/classes']);
           } else {
+            this.toastr.error('Wrong credentials');
             console.error('No token received');
           }
         },

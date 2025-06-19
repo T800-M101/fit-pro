@@ -64,7 +64,7 @@
             <a routerLink="sign-in" class="btn-join-desktop">Sign In</a>
             }
             @case (AuthState.Authenticated) {
-            <a (click)="authService.logout()" class="logout">{{authService.userName()}} <span>Log out</span></a>
+            <a (click)="authService.logout()" class="logout">{{authService.userName() | titlecase }} <span>Log out</span></a>
             }
             }
 

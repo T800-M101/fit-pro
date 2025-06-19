@@ -7,6 +7,8 @@ import { provideHttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 
+// import { provideNgxSpinner } from 'ngx-spinner';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
@@ -19,8 +21,15 @@ export const appConfig: ApplicationConfig = {
       timeOut: 3000,
       closeButton: true,
       progressBar: true,
-    })
+    }),
+    // provideNgxSpinner({
+    //   type: 'pacman', // Default spinner type
+    //   size: 'medium',
+    //   color: '#FFD700', // Gold color for pacman
+    //   bgColor: 'rgba(0,0,0,0.7)'
+    // })
   ]
 };
+
 
 
