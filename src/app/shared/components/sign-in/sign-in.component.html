@@ -9,21 +9,17 @@
           <div class="form-group">
             <label for="email">Email</label>
             <input formControlName="email" type="email" id="email" placeholder="Enter your email"/>
-            @if(loginForm.get('email')?.invalid && loginForm.get('email')?.touched ){
-              @if(loginForm.get('email')?.errors?.['required']){
-                <small class="error">Email is required.</small>
+             @if(isInvalid('email', loginForm)){
+              <span class="error">{{ getErrorMessage('email', loginForm) }}</span>
               }
-  
-              @if(loginForm.get('email')?.errors?.['email']){
-                <small class="error">Enter a valid email.</small>
-              }
-            }
           </div>
   
           <div class="form-group">
             <label for="password">Password</label>
             <input formControlName="password" type="password" id="password" placeholder="Enter your password" autocomplete="new-password"/>
-             @if(isInvalid('password')){<span class="error">{{ getErrorMessage('password') }}</span>}
+             @if(isInvalid('password', loginForm)){
+              <span class="error">{{ getErrorMessage('password', loginForm) }}</span>
+            }
           </div>
   
           <button type="submit" class="btn-login" [disabled]="loginForm.invalid">Login</button>

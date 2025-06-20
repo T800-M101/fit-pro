@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,6 +8,7 @@ import {
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { getErrorMessage, isInvalid } from '../../utils/helpers';
 
 @Component({
   selector: 'app-sign-in',
@@ -16,15 +17,20 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
 })
-export class SignInComponent {
-  loginForm: FormGroup;
+export class SignInComponent implements OnInit {
+  loginForm!: FormGroup;
+
+  isInvalid = isInvalid;
+  getErrorMessage = getErrorMessage;
 
   constructor(
     private fb: FormBuilder, 
     private authService: AuthService, 
     private router: Router, 
     private toastr: ToastrService) {
-    this.loginForm = this.fb.group({
+  }
+  ngOnInit(): void {
+   this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
@@ -54,61 +60,4 @@ onSubmit(): void {
       });
     }
   }
-
-   isInvalid(controlName: string): boolean {
-    const control = this.loginForm.get(controlName);
-    return !!(control && control.invalid && (control.touched || control.dirty));
-  }
-
-  getErrorMessage(controlName: string): string {
-    const control = this.loginForm.get(controlName);
-    if (!control || !control.errors) return '';
-
-    if (control.errors['required']) {
-      switch (controlName) {
-        case 'name':
-          return 'Name is required';
-        case 'username':
-          return 'Username is required';
-        case 'email':
-          return 'Email is required';
-        case 'email':
-          return 'Phone is required';
-        case 'password':
-          return 'Password is required';
-        case 'confirmPassword':
-          return 'Please confirm your password';
-        case 'gender':
-          return 'Please select a gender';
-        case 'membership':
-          return 'Please select a membership';
-        default:
-          return 'This field is required';
-      }
-    }
-
-    if (control.errors['email']) return 'Invalid email format';
-
-    if (control.errors['minlength']) {
-      const requiredLength = control.errors['minlength'].requiredLength;
-      return `Minimum length is ${requiredLength} characters`;
-    }
-
-    if (control.errors['maxlength']) {
-      const requiredLength = control.errors['maxlength'].requiredLength;
-      return `Maximum length is ${requiredLength} characters`;
-    }
-
-    if (control.errors['pattern']) {
-      switch (controlName) {
-        case 'phone':
-          return 'Phone number must be valid (e.g., +1234567890)';
-        default:
-          return 'Invalid format';
-      }
-    }
-
-    return 'Invalid input';
-  }
-
 }

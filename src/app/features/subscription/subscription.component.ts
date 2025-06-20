@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -13,6 +13,7 @@ import { RegisterUserDto } from '../dto/register-user';
 import { Role } from '../../shared/services/auth/auth-enum';
 import { mapperDto } from '../../shared/utils/mapperDto';
 import { passwordMatchValidator } from '../../shared/utils/password-match-validator';
+import { getErrorMessage, isInvalid } from '../../shared/utils/helpers';
 
 @Component({
   selector: 'app-subscription',
@@ -26,7 +27,10 @@ export class SubscriptionComponent implements OnInit {
   @ViewChild('passwordInputConfirm') passwordInputConfirm!: ElementRef<HTMLInputElement>;
 
   private membership: string = '';
-  registrationForm: FormGroup;
+  registrationForm!: FormGroup;
+
+  isInvalid = isInvalid;
+  getErrorMessage = getErrorMessage;
 
 
 togglePassword(msg: string) {
@@ -48,6 +52,28 @@ togglePassword(msg: string) {
     public navigateService: NavigationService,
     private toastr: ToastrService
   ) {
+    
+  }
+
+  ngOnInit(): void {
+    this.initFormGroup();
+
+    this.route.queryParams.subscribe((params) => {
+      this.membership = params['type'] || '';
+
+      if (this.membership) {
+        this.registrationForm.patchValue({
+          membership: this.membership,
+        });
+      } else {
+        this.registrationForm.patchValue({
+          membership: '',
+        });
+      }
+    });
+  }
+
+  initFormGroup(): void {
     this.registrationForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       username: [
@@ -77,22 +103,6 @@ togglePassword(msg: string) {
   );
   }
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.membership = params['type'] || '';
-
-      if (this.membership) {
-        this.registrationForm.patchValue({
-          membership: this.membership,
-        });
-      } else {
-        this.registrationForm.patchValue({
-          membership: '',
-        });
-      }
-    });
-  }
-
   onSubmit(): void {
     this.registrationForm.markAllAsTouched();
     if (this.registrationForm.valid) {
@@ -120,61 +130,5 @@ togglePassword(msg: string) {
         },
       });
     }
-  }
-
-  isInvalid(controlName: string): boolean {
-    const control = this.registrationForm.get(controlName);
-    return !!(control && control.invalid && (control.touched || control.dirty));
-  }
-
-  getErrorMessage(controlName: string): string {
-    const control = this.registrationForm.get(controlName);
-    if (!control || !control.errors) return '';
-
-    if (control.errors['required']) {
-      switch (controlName) {
-        case 'name':
-          return 'Name is required';
-        case 'username':
-          return 'Username is required';
-        case 'email':
-          return 'Email is required';
-        case 'email':
-          return 'Phone is required';
-        case 'password':
-          return 'Password is required';
-        case 'confirmPassword':
-          return 'Please confirm your password';
-        case 'gender':
-          return 'Please select a gender';
-        case 'membership':
-          return 'Please select a membership';
-        default:
-          return 'This field is required';
-      }
-    }
-
-    if (control.errors['email']) return 'Invalid email format';
-
-    if (control.errors['minlength']) {
-      const requiredLength = control.errors['minlength'].requiredLength;
-      return `Minimum length is ${requiredLength} characters`;
-    }
-
-    if (control.errors['maxlength']) {
-      const requiredLength = control.errors['maxlength'].requiredLength;
-      return `Maximum length is ${requiredLength} characters`;
-    }
-
-    if (control.errors['pattern']) {
-      switch (controlName) {
-        case 'phone':
-          return 'Phone number must be valid (e.g., +1234567890)';
-        default:
-          return 'Invalid format';
-      }
-    }
-
-    return 'Invalid input';
   }
 }

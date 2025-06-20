@@ -1,12 +1,12 @@
 
 .login-section {
-  padding: 3rem 1rem; // Increased padding around the section
+  padding: 3rem 1rem; 
   display: flex;
   justify-content: center;
   align-items: center;
   
   .container {
-    max-width: 700px; // Wider form
+    max-width: 700px;
     width: 100%;
     margin: 0 auto;
   }
@@ -15,7 +15,7 @@
     background: #fff;
     border-radius: 1.5rem;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-    padding: 3rem; // More inner space
+    padding: 3rem; 
     margin-bottom: 17rem;
 
     .title {
@@ -48,13 +48,19 @@
         }
 
         input {
+          outline: none;
           padding: 0.8rem 1.2rem; // Larger input area
           border: 1px solid #ccc;
           border-radius: 0.6rem;
           font-size: 16px;
           height: 45px;
         }
+
+        input:focus {
+           border-color: #9b59b6;
+          }
       }
+
 
       .btn-login {
         background: var(--purple);

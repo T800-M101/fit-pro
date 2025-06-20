@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SpinnerComponent } from '../../shared/spinners/spinner/spinner.component';
 import { passwordMatchValidator } from '../../shared/utils/password-match-validator';
+import { getErrorMessage, isInvalid } from '../../shared/utils/helpers';
 
 @Component({
   selector: 'app-password-recovery',
@@ -24,8 +25,11 @@ export class PasswordRecoveryComponent implements OnInit {
   @ViewChild('passwordInputConfirm') passwordInputConfirm!: ElementRef<HTMLInputElement>;
   isRecoveringPassword = false;
   temporaryToken: string | null = '';
-  form!: FormGroup;
+  recoveryForm!: FormGroup;
   isLoading = false;
+
+  isInvalid = isInvalid;
+  getErrorMessage = getErrorMessage;
 
   constructor(
     private fb: FormBuilder,
@@ -40,7 +44,7 @@ export class PasswordRecoveryComponent implements OnInit {
  ngOnInit(): void {
   this.activatedRoute.queryParamMap.subscribe((params) => {
     this.temporaryToken = params.get('token');
-    this.isRecoveringPassword = true;
+    this.isRecoveringPassword = !!this.temporaryToken;
 
     if (this.isRecoveringPassword) {
       this.initPasswordResetForm();
@@ -52,7 +56,7 @@ export class PasswordRecoveryComponent implements OnInit {
 }
 
 private initPasswordResetForm(): void {
-  this.form = this.fb.group({
+  this.recoveryForm = this.fb.group({
     password: ['', [Validators.required, Validators.minLength(6)]],
     confirmPassword: ['', Validators.required]
   }, {
@@ -61,7 +65,7 @@ private initPasswordResetForm(): void {
 }
 
 private initEmailForm(): void {
-  this.form = this.fb.group({
+  this.recoveryForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]]
   });
 }
@@ -78,18 +82,18 @@ togglePassword(msg: string) {
 }
 
   onSubmit(): void {
-    if (this.form.valid){
-      this.form.markAllAsTouched();
+    if (this.recoveryForm.valid){
+      this.recoveryForm.markAllAsTouched();
       if (!this.temporaryToken){
         this.isLoading = true;
-        const { email } = this.form.value;
+        const { email } = this.recoveryForm.value;
         this.authService.requestPasswordReset(email).subscribe({
           next: () => {
             this.toastr.success(
               'A link to reset your password was sent to your email!'
             );
             this.isLoading = false;
-            this.form.reset();
+            this.recoveryForm.reset();
           },
           error: (err) => {
             const message =
@@ -101,14 +105,14 @@ togglePassword(msg: string) {
         });
 
       } else {
-        const { password } = this.form.value;
+        const { password } = this.recoveryForm.value;
        
         this.authService.resetPassword({ token: this.temporaryToken, newPassword: password}).subscribe({
           next: () => {
             this.toastr.success(
               'Your password has been reseted successfully!'
             );
-            this.form.reset();
+            this.recoveryForm.reset();
             this.router.navigate(['sign-in']);
           },
           error: (err) => {
