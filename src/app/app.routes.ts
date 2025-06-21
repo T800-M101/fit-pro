@@ -5,7 +5,7 @@ import { ClassesComponent } from './features/classes/classes.component';
 import { SubscriptionComponent } from './features/subscription/subscription.component';
 import { PaymentsComponent } from './features/payments/payments.component';
 import { YourSpaceComponent } from './features/your-space/your-space.component';
-import { SignInComponent} from './shared/components/sign-in/sign-in.component';
+import { SignInComponent} from './shared/components/auth/sign-in.component';
 
 export const routes: Routes = [
   {
@@ -51,7 +51,7 @@ export const routes: Routes = [
  {
     path: 'sign-in',
     loadComponent: () =>
-      import('./shared/components/sign-in/sign-in.component').then(
+      import('./shared/components/auth/sign-in.component').then(
         (m) => m.SignInComponent
       ),
   },

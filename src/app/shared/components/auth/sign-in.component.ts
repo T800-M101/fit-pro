@@ -9,6 +9,8 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { getErrorMessage, isInvalid } from '../../utils/helpers';
+import { LoginDto } from '../../../features/dto/login.dto';
+import { mapperDto } from '../../utils/mapperDto';
 
 @Component({
   selector: 'app-sign-in',
@@ -38,9 +40,9 @@ export class SignInComponent implements OnInit {
 
 onSubmit(): void {
     if (this.loginForm.valid) {
-      const data = this.loginForm.value;
+      const loginDto = mapperDto(this.loginForm.value, LoginDto);
 
-      this.authService.login(data).subscribe({
+      this.authService.login(loginDto).subscribe({
         next: (response) => {
           this.toastr.success('User logged in successcully!');
           const token = response?.token;

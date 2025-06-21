@@ -1,19 +1,20 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { computed, Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthState } from './auth-enum';
 import { RegisterUserDto } from '../../../features/dto/register-user';
-import { ChangePasswordDTO } from '../../../interfaces/change-password.interface';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000';
+  
   private tokenKey = 'token';
   private jwtHelper = new JwtHelperService();
+  baseUrl = environment.apiUrl;
 
   userName = signal<string | null>(this.extractNameFromToken());
   authState = signal<AuthState>(this.getAuthState());
