@@ -13,66 +13,17 @@
             </div>
         }
       <p>Select a time slot for your class this week:</p>
-
-      <!-- <div class="calendar-grid">
-        <div class="day">
-          <h4>Monday</h4>
-          <button class="time-slot">6:00 AM</button>
-          <button class="time-slot">7:00 AM</button>
-          <button class="time-slot">8:00 AM</button>
-          <button class="time-slot">6:00 PM</button>
-          
-        </div>
-        <div class="day">
-          <h4>Tuesday</h4>
-          <button class="time-slot">6:00 AM</button>
-          <button class="time-slot">7:00 AM</button>
-          <button class="time-slot">8:00 AM</button>
-          <button class="time-slot">6:00 PM</button>
-        </div>
-        <div class="day">
-          <h4>Wednesday</h4>
-          <button class="time-slot">6:00 AM</button>
-          <button class="time-slot">7:00 AM</button>
-          <button class="time-slot">8:00 AM</button>
-          <button class="time-slot">6:00 PM</button>
-        </div>
-        <div class="day">
-          <h4>Thursday</h4>
-          <button class="time-slot">6:00 AM</button>
-          <button class="time-slot">7:00 AM</button>
-          <button class="time-slot">8:00 AM</button>
-          <button class="time-slot">6:00 PM</button>
-        </div>
-        <div class="day">
-          <h4>Friday</h4>
-          <button class="time-slot">6:00 AM</button>
-          <button class="time-slot">7:00 AM</button>
-          <button class="time-slot">8:00 AM</button>
-          <button class="time-slot">6:00 PM</button>
-        </div>
-        <div class="day">
-          <h4>Saturday</h4>
-          <button class="time-slot">6:00 AM</button>
-          <button class="time-slot">7:00 AM</button>
-          <button class="time-slot">8:00 AM</button>
-          <button class="time-slot">6:00 PM</button>
-        </div>
-      </div>
-    </div> -->
+    
     <div class="calendar-grid">
-      @for(day of sessionsByDay; track $index){
+      @for(day of schedule(); track $index){
          <div class="day">
              <h4>{{day.day}}</h4>
-             @for(hour of day.classes; track $index){
-                <button class="time-slot" (clik)="bookClass">{{hour}}</button>
+             @for(session of day.sessions; track $index){
+                <button class="time-slot" (click)="bookHour({attended: false, booked_at: session.sessionDate, userId: userId, classSessionId: classId() })" >{{session.time}}</button>
              }
          </div>
       }
     </div>
-
-  
-  
 
     <div class="modal-footer">
       <button class="confirm-btn" (click)="confirmBooking()">Confirm Booking</button>

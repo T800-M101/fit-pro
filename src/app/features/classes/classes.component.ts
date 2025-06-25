@@ -18,6 +18,9 @@ export class ClassesComponent implements OnInit {
 
   classes!: Class[];
 
+  schedule!: any[];
+  classId!: number;
+
   constructor(public bookingService: BookingService, private classesService: ClassesService, private sessionService: SessionService) {}
 
   ngOnInit(): void {
@@ -32,7 +35,15 @@ export class ClassesComponent implements OnInit {
   }
 
   bookClass(classId: number): void {
-    this.sessionService.getWeeklySessions(classId).subscribe(res => console.log('RES',res))
+     this.classesService.getScheduleByClassId(classId).subscribe(data => {
+      console.log('LA DATA', data)
+     this.schedule = data;
+     this.classId = data.classId;
+
+     
+    });
+     //this.classesService.getScheduleByClassId(classId).subscribe(data => console.log('SCHE',data));
+    // this.sessionService.getWeeklySessions(classId).subscribe(res => console.log('RES',res))
     this.bookingService.showModal.set(true);
     //this.bookingService.bookedClass.set(cls);
     // this.bookingService.showModal.set(true);
@@ -45,4 +56,6 @@ export class ClassesComponent implements OnInit {
   // closeModal() {
   //   this.selectedClass = null;
   // }
+
+
 }

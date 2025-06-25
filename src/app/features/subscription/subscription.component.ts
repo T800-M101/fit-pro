@@ -76,14 +76,6 @@ togglePassword(msg: string) {
   initFormGroup(): void {
     this.registrationForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      username: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(20),
-        ],
-      ],
       email: ['', [Validators.required, Validators.email]],
       phone: [
         '',
@@ -93,7 +85,6 @@ togglePassword(msg: string) {
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       gender: ['', Validators.required],
       membership: ['', Validators.required],
-      role: [Role.User],
       allowEmail: [false],
       allowWhats: [false],
     },

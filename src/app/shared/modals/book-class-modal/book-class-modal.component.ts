@@ -1,8 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { BookingService } from '../../services/booking/booking.service';
 import { CommonModule } from '@angular/common';
-import { SessionService } from '../../services/sessions/session.service';
 import { Session } from '../../../interfaces/session.interface';
+import { AuthService } from '../../services/auth/auth.service';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+import { ToastrService } from 'ngx-toastr';
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 @Component({
   selector: 'app-book-class-modal',
@@ -13,31 +19,46 @@ import { Session } from '../../../interfaces/session.interface';
 })
 export class BookClassModalComponent implements OnInit {
   showTooltip = true;
-  calendarByDay: Record<string, Session[]> = {}; 
+  calendarByDay: Record<string, Session[]> = {};
   sessions!: any[];
 
+  userId!: number | null;
+
+  schedule = input<any>();
+  classId = input<any>();
+
   get calendarDays(): string[] {
-  return Object.keys(this.calendarByDay);
-}
-  constructor(public bookingService: BookingService, private sessionService: SessionService ) {}
+    return Object.keys(this.calendarByDay);
+  }
+  constructor(
+    public bookingService: BookingService,
+    private authService: AuthService,
+    private toastr: ToastrService
+  ) {}
 
   sessionsByDay: any[] = [];
 
   ngOnInit() {
-    this.sessionService.getWeeklySessions().subscribe({
-      next: (data) => {
-        this.sessionsByDay = data;
-      },
-      error: (err) => {
-        console.error('Error fetching sessions', err);
-      }
-    });
+    this.userId = this.authService.extractUserIdFromToken();
   }
 
+  bookHour(bookingData: any): void {
+    this.bookingService
+      .bookHour(bookingData)
+      .subscribe({
+        next: (response) => {
+          this.toastr.success('Classes booked successfully!');
+        },
+        error: (error) => {
+          this.toastr.error(error.error.message);
+        }
+      });
+  }
 
-bookClass(): void {
-  
-}
+  getTimeToISO(date: string, time: string): string {
+    const combinedDateTime = dayjs(`${date} ${time}`, 'YYYY-MM-DD h:mm A');
+    return combinedDateTime.toISOString();
+  }
 
   confirmBooking(): void {
     this.bookingService.showModal.set(false);

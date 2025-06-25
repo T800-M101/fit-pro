@@ -24,5 +24,5 @@
 
 
 @if(this.bookingService.showModal()) {
-    <app-book-class-modal></app-book-class-modal>
+    <app-book-class-modal [schedule]="schedule" [classId]="classId"></app-book-class-modal>
 }

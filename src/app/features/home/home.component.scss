@@ -182,7 +182,17 @@
 .icons {
   position: relative;
   width: 100vw;
-  height: 20rem;
+  height: 25rem;
+}
+
+
+
+.icons p:last-of-type {
+  white-space: nowrap; /* Prevent text wrapping */
+  font-size: 1.2rem; /* Adjust font size if needed */
+  width: 100%;
+  text-align: center;
+  bottom: 15%;
 }
 
 .icons p {
@@ -454,6 +464,22 @@
   .media-icons i:hover {
     transform: scale(1.2);
     color: #4e278f;
+  }
+
+  .icons {
+    height: 20rem;
+  }
+  .ic ons i {
+    font-size: 5rem; 
+  }
+  
+  .icons p:first-of-type {
+    font-size: 3rem; 
+  }
+  
+  .icons p:last-of-type {
+    font-size: 1.5rem; 
+    padding: 0 1rem;
   }
 
   /* RATING */

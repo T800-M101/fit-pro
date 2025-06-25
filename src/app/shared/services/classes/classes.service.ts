@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,6 +12,10 @@ export class ClassesService {
   constructor(private http: HttpClient) { }
 
   getClasses(): Observable<any> {
-        return this.http.get<any>(`${this.baseUrl}/classes/get`);
-    }
+    return this.http.get<any>(`${this.baseUrl}/classes/get`);
+  }
+
+  getScheduleByClassId(classId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/schedules/class/${classId}`);
+  }
 }

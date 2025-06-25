@@ -22,12 +22,6 @@ export const appConfig: ApplicationConfig = {
       closeButton: true,
       progressBar: true,
     }),
-    // provideNgxSpinner({
-    //   type: 'pacman', // Default spinner type
-    //   size: 'medium',
-    //   color: '#FFD700', // Gold color for pacman
-    //   bgColor: 'rgba(0,0,0,0.7)'
-    // })
   ]
 };
 

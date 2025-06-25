@@ -63,6 +63,18 @@ export class AuthService {
     return role ?? null;
   }
 
+  extractUserIdFromToken(): number | null {
+  const token = this.getToken();
+  if (!token || this.jwtHelper.isTokenExpired(token)) return null;
+
+  const decoded = this.jwtHelper.decodeToken(token);
+  const userId = decoded?.id || decoded?.userId; // Adjust property name based on your JWT
+
+  if (!userId) return null;
+
+  return typeof userId === 'string' ? parseInt(userId, 10) : userId;
+}
+
   getAuthState(): AuthState {
     const token = this.getToken();
     if (!token) return AuthState.NotRegistered;

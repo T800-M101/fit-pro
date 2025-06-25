@@ -20,8 +20,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   memberships: Membership[] = [];
   totalUsers = 0;
 
- shouldDisableSignup = computed(() => this.authService.isTokenValid());
-
+  shouldDisableSignup = computed(() => this.authService.isTokenValid());
 
   constructor(
     private router: Router,
@@ -32,15 +31,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.instructorsService
-      .getInstructors()
-      .subscribe((data) => (this.instructors = data));
-    this.usersService
-      .getTotalUsers()
-      .subscribe((count) => (this.totalUsers = count));
-    this.membershipService
-      .getMembershipPlans()
-      .subscribe((data) => (this.memberships = data));
+    this.instructorsService.getInstructors().subscribe({
+      next: (response: any) => {
+        this.instructors = response;
+      },
+      error: (error) => console.error(error),
+    });
+
+    this.usersService.getTotalUsers().subscribe({
+      next: (count) => (this.totalUsers = count),
+
+      error: (error) => console.error(error),
+    });
+
+    this.membershipService.getMembershipPlans().subscribe({
+      next: (response) => {
+        console.log(response);
+        this.memberships = response;
+      },
+      error: (error) => console.error(error),
+    });
   }
 
   ngAfterViewInit() {

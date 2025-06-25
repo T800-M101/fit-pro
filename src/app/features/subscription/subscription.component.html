@@ -13,14 +13,6 @@
         </div>
 
         <div class="input-box">
-          <label for="username" class="details"> Username</label>
-          <input type="text" formControlName="username" placeholder="Enter your username">
-          @if(isInvalid('username', registrationForm)){
-          <span class="error">{{ getErrorMessage('username', registrationForm)}}</span>
-          }
-        </div>
-
-        <div class="input-box">
           <label for="email" class="details"> Email</label>
           <input type="email" formControlName="email" placeholder="Enter your email">
           @if(isInvalid('email', registrationForm)){
