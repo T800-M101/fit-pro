@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,11 +9,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { NavigationService } from '../../shared/services/navigation/navigation.service';
 import { ToastrService } from 'ngx-toastr';
-import { RegisterUserDto } from '../dto/register-user';
-import { Role } from '../../shared/services/auth/auth-enum';
-import { mapperDto } from '../../shared/utils/mapperDto';
 import { passwordMatchValidator } from '../../shared/utils/password-match-validator';
 import { getErrorMessage, isInvalid } from '../../shared/utils/helpers';
+import { MembershipService } from '../../shared/services/membership/membership.service';
+import { MembershipPlan } from '../../interfaces/membershipPlan.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-subscription',
@@ -22,27 +22,32 @@ import { getErrorMessage, isInvalid } from '../../shared/utils/helpers';
   templateUrl: './subscription.component.html',
   styleUrl: './subscription.component.scss',
 })
-export class SubscriptionComponent implements OnInit {
+export class SubscriptionComponent implements OnInit, OnDestroy {
   @ViewChild('passwordInput') passwordInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('passwordInputConfirm') passwordInputConfirm!: ElementRef<HTMLInputElement>;
+  @ViewChild('passwordInputConfirm')
+  passwordInputConfirm!: ElementRef<HTMLInputElement>;
 
-  private membership: string = '';
+  private membershipId!: number;
+  membershipPlans!: MembershipPlan[];
   registrationForm!: FormGroup;
+  routeSubs$ = new Subscription();
+  membershipSubs$ = new Subscription();
+  authSubs$ = new Subscription();
+  
 
   isInvalid = isInvalid;
   getErrorMessage = getErrorMessage;
 
-
-togglePassword(msg: string) {
-  if(msg === 'password') {
-    const input = this.passwordInput.nativeElement;
-    input.type = input.type === 'password' ? 'text' : 'password';
-  } 
-  if (msg === 'confirm'){
-    const input = this.passwordInputConfirm.nativeElement;
-    input.type = input.type === 'password' ? 'text' : 'password';
+  togglePassword(msg: string) {
+    if (msg === 'password') {
+      const input = this.passwordInput.nativeElement;
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+    if (msg === 'confirm') {
+      const input = this.passwordInputConfirm.nativeElement;
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
   }
-}
 
   constructor(
     private fb: FormBuilder,
@@ -50,76 +55,90 @@ togglePassword(msg: string) {
     private authService: AuthService,
     private router: Router,
     public navigateService: NavigationService,
+    private membershipService: MembershipService,
     private toastr: ToastrService
-  ) {
-    
+  ) {}
+
+  ngOnDestroy(): void {
+   this.routeSubs$.unsubscribe();
+   this.membershipSubs$.unsubscribe();
+   this.authSubs$.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.initFormGroup();
-
-    this.route.queryParams.subscribe((params) => {
-      this.membership = params['type'] || '';
-
-      if (this.membership) {
-        this.registrationForm.patchValue({
-          membership: this.membership,
-        });
-      } else {
-        this.registrationForm.patchValue({
-          membership: '',
-        });
+    
+    this.routeSubs$ = this.route.queryParams.subscribe((params) => {
+      if (params && params['membershipId']) {
+        this.membershipId = params['membershipId'];
       }
+      this.initFormGroup();
+        
+        
+        if (this.membershipId) {
+          this.registrationForm.patchValue({
+            membershipId: this.membershipId,
+          });
+        }
+        this.getMembershipPlans();
     });
   }
 
   initFormGroup(): void {
-    this.registrationForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: [
-        '',
-        [Validators.required, Validators.pattern(/^\+?[0-9]{7,15}$/)],
-      ],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
-      gender: ['', Validators.required],
-      membership: ['', Validators.required],
-      allowEmail: [false],
-      allowWhats: [false],
-    },
-    {
-      validators: passwordMatchValidator('password', 'confirmPassword')
-    }
-  );
+    this.registrationForm = this.fb.group(
+      {
+        name: ['', [Validators.required, Validators.minLength(2)]],
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', [Validators.required, Validators.pattern(/^\+?[0-9]{7,15}$/)],],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+        gender: ['', Validators.required],
+        membershipId: [this.membershipId ?? '', Validators.required],
+        allowEmail: [true],
+        allowWhatsApp: [true],
+      },
+      {
+        validators: passwordMatchValidator('password', 'confirmPassword'),
+      }
+    );
+  }
+
+  getMembershipPlans(): void {
+    this.membershipSubs$ = this.membershipService.getMembershipPlans().subscribe({
+      next: (data) => {
+        this.membershipPlans = data;
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    });
   }
 
   onSubmit(): void {
-    this.registrationForm.markAllAsTouched();
-    if (this.registrationForm.valid) {
-      this.authService.removeToken();
-      const userDTO = mapperDto(this.registrationForm.value, RegisterUserDto);
+    //this.registrationForm.markAllAsTouched();
+    if (this.registrationForm.invalid) return;
+    const { confirmPassword, ...createUserDto } = this.registrationForm.value;
 
-      this.authService.register(userDTO).subscribe({
-        next: (res: any) => {
-          const token = res?.token;
-          if (token) {
-            this.authService.saveToken(token);
-          } else {
-            console.error('No token received');
-          }
+    this.authService.removeToken();
 
-          this.toastr.success('User registered successfully!');
-          this.registrationForm.reset();
-          setTimeout(() => {
-            this.router.navigate(['/classes']);
-          }, 2000);
-        },
-        error: (err: any) => {
-          this.toastr.error('Something went wrong');
-          console.error(err);
-        },
-      });
-    }
+    this.authSubs$ = this.authService.register(createUserDto).subscribe({
+      next: (res: any) => {
+        const token = res?.token;
+        if (token) {
+          this.authService.saveToken(token);
+        } else {
+          console.error('No token received');
+        }
+
+        this.toastr.success('User registered successfully!');
+        this.registrationForm.reset();
+        setTimeout(() => {
+          this.router.navigate(['/classes']);
+        }, 2000);
+      },
+      error: (err: any) => {
+        this.toastr.error('Something went wrong');
+        console.error(err);
+      },
+    });
   }
 }

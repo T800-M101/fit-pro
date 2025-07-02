@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, computed, OnInit } from '@angular/core';
+import { AfterViewInit, Component, computed, OnDestroy, OnInit } from '@angular/core';
 import { CountUpComponent } from '../../shared/components/count-up/count-up.component';
 import { Router } from '@angular/router';
 import { Instructor } from '../../interfaces/instructor.interface';
@@ -7,6 +7,7 @@ import { UsersService } from '../../shared/services/users/users.service';
 import { MembershipService } from '../../shared/services/membership/membership.service';
 import { Membership } from '../../interfaces/membership.interface';
 import { AuthService } from '../../shared/services/auth/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +16,13 @@ import { AuthService } from '../../shared/services/auth/auth.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   instructors: Instructor[] = [];
   memberships: Membership[] = [];
   totalUsers = 0;
+  instructorSubs$ = new Subscription();
+  userSubs$ = new Subscription();
+  membershipSubs$ = new Subscription();
 
   shouldDisableSignup = computed(() => this.authService.isTokenValid());
 
@@ -30,23 +34,28 @@ export class HomeComponent implements OnInit, AfterViewInit {
     public authService: AuthService
   ) {}
 
+  ngOnDestroy(): void {
+    this.instructorSubs$.unsubscribe();
+    this.userSubs$.unsubscribe();
+    this.membershipSubs$.unsubscribe();
+  }
+
   ngOnInit(): void {
-    this.instructorsService.getInstructors().subscribe({
+    this.instructorSubs$ = this.instructorsService.getInstructors().subscribe({
       next: (response: any) => {
         this.instructors = response;
       },
       error: (error) => console.error(error),
     });
 
-    this.usersService.getTotalUsers().subscribe({
+    this.userSubs$ = this.usersService.getTotalUsers().subscribe({
       next: (count) => (this.totalUsers = count),
 
       error: (error) => console.error(error),
     });
 
-    this.membershipService.getMembershipPlans().subscribe({
+    this.membershipSubs$ =this.membershipService.getMembershipPlans().subscribe({
       next: (response) => {
-        console.log(response);
         this.memberships = response;
       },
       error: (error) => console.error(error),
@@ -77,9 +86,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
   }
 
-  goToSubscription(cardType: string) {
+  goToSubscription(membershipId: number) {
     this.router.navigate(['/subscription'], {
-      queryParams: { type: cardType },
+      queryParams: { membershipId },
     });
   }
 }

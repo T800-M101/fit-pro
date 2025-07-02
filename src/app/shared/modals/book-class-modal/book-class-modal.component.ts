@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import { ToastrService } from 'ngx-toastr';
+import { Booking } from '../../../interfaces/booking.interface';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -18,18 +19,22 @@ dayjs.extend(timezone);
   styleUrl: './book-class-modal.component.scss',
 })
 export class BookClassModalComponent implements OnInit {
+  schedule = input<any>();
+  classId = input<any>();
   showTooltip = true;
   calendarByDay: Record<string, Session[]> = {};
   sessions!: any[];
-
+  className = input<string>('');
   userId!: number | null;
+  selectedSessionDate: string | null = null;
 
-  schedule = input<any>();
-  classId = input<any>();
+  bookingList: Booking[] = [];
+
 
   get calendarDays(): string[] {
     return Object.keys(this.calendarByDay);
   }
+
   constructor(
     public bookingService: BookingService,
     private authService: AuthService,
@@ -40,6 +45,11 @@ export class BookClassModalComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.authService.extractUserIdFromToken();
+  }
+
+
+  pushBookingToList(booking: Booking): void {
+
   }
 
   bookHour(bookingData: any): void {
@@ -67,4 +77,9 @@ export class BookClassModalComponent implements OnInit {
   closeModal(): void {
     this.bookingService.showModal.set(false);
   }
+
+  toggleSelected(event: MouseEvent) {
+  const btn = event.target as HTMLElement;
+   btn.classList.toggle('selected');
+}
 }

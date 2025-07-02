@@ -1,6 +1,6 @@
 export interface Class {
     id: number;
-    title: string;
+    name: string;
     description: string;
     photo: string;
     duration_minutes: number;

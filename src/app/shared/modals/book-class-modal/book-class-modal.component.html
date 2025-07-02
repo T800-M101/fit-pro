@@ -2,7 +2,7 @@
 <div class="modal-backdrop" id="bookingModal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2>Book a {{bookingService.bookedClass() | titlecase}} Class</h2>
+      <h2>Book a {{className() | titlecase}} Class</h2>
       <button class="close-btn" (click)="closeModal()">&times;</button>
     </div>
 
@@ -19,7 +19,7 @@
          <div class="day">
              <h4>{{day.day}}</h4>
              @for(session of day.sessions; track $index){
-                <button class="time-slot" (click)="bookHour({attended: false, booked_at: session.sessionDate, userId: userId, classSessionId: classId() })" >{{session.time}}</button>
+                <button class="time-slot"  (click)="toggleSelected($event)"   >{{session.time}}</button>
              }
          </div>
       }
@@ -31,3 +31,4 @@
   </div>
 </div>
 
+<!-- (click)="pushBookingToList({booked_at: session.bookingTime, userId: userId, classSessionId: classId() })" -->

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import {
   FormBuilder,
@@ -12,6 +12,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SpinnerComponent } from '../../shared/spinners/spinner/spinner.component';
 import { passwordMatchValidator } from '../../shared/utils/password-match-validator';
 import { getErrorMessage, isInvalid } from '../../shared/utils/helpers';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-password-recovery',
@@ -20,13 +21,15 @@ import { getErrorMessage, isInvalid } from '../../shared/utils/helpers';
   templateUrl: './password-recovery.component.html',
   styleUrl: './password-recovery.component.scss',
 })
-export class PasswordRecoveryComponent implements OnInit {
+export class PasswordRecoveryComponent implements OnInit, OnDestroy {
   @ViewChild('passwordInput') passwordInput!: ElementRef<HTMLInputElement>;
   @ViewChild('passwordInputConfirm') passwordInputConfirm!: ElementRef<HTMLInputElement>;
   isRecoveringPassword = false;
   temporaryToken: string | null = '';
   recoveryForm!: FormGroup;
   isLoading = false;
+  private routeSub$ = new Subscription();
+  private authSub$ = new Subscription();
 
   isInvalid = isInvalid;
   getErrorMessage = getErrorMessage;
@@ -40,9 +43,14 @@ export class PasswordRecoveryComponent implements OnInit {
     private router: Router
   ) {
   }
+
+  ngOnDestroy(): void {
+    this.routeSub$.unsubscribe();
+    this.authSub$.unsubscribe();
+  }
   
  ngOnInit(): void {
-  this.activatedRoute.queryParamMap.subscribe((params) => {
+  this.routeSub$ = this.activatedRoute.queryParamMap.subscribe((params) => {
     this.temporaryToken = params.get('token');
     this.isRecoveringPassword = !!this.temporaryToken;
 
@@ -107,7 +115,7 @@ togglePassword(msg: string) {
       } else {
         const { password } = this.recoveryForm.value;
        
-        this.authService.resetPassword({ token: this.temporaryToken, newPassword: password}).subscribe({
+        this.authSub$ = this.authService.resetPassword({ token: this.temporaryToken, newPassword: password}).subscribe({
           next: () => {
             this.toastr.success(
               'Your password has been reseted successfully!'

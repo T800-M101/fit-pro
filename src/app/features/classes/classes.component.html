@@ -1,28 +1,28 @@
 <section class="container">
 
-  @for( class of classes; track class.id) {
+  @for( clase of classes; track clase.id) {
     <div class="class-card">
-      <img [src]="class.photo" [alt]="class.title" />
-      <div class="class-name yoga">{{class.title}}</div>
+      <img [src]="clase.photo" [alt]="clase.name" />
+      <div class="class-name yoga">{{clase.name}}</div>
       <div class="class-info">
         <div class="info-item">
           <i class="fa-regular fa-clock"></i>
-          <span>{{class.duration_minutes}} mins</span>
+          <span>{{clase.duration_minutes}} mins</span>
         </div>
         <div class="info-item">
           <i class="fa-solid fa-battery-quarter"></i>
-          <span>{{class.intensity.toString()| titlecase}} intensity</span>
+          <span>{{clase.intensity.toString()| titlecase}} intensity</span>
         </div>
       </div>
       <p class="class-description">
-       {{class.description}}
+       {{clase.description}}
       </p>
-      <button class="btn-enroll" (click)="bookClass(class.id)">Book Class</button>
+      <button class="btn-enroll" (click)="bookClass(clase.id)">Book Class</button>
     </div>
   }
 </section>
 
 
 @if(this.bookingService.showModal()) {
-    <app-book-class-modal [schedule]="schedule" [classId]="classId"></app-book-class-modal>
+    <app-book-class-modal [schedule]="schedule" [className]="selectedClass?.name ?? ''" [classId]="classId"></app-book-class-modal>
 }

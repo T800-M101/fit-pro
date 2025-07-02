@@ -76,11 +76,11 @@
 
         <div class="input-box">
           <label for="membership">Memebership</label>
-          <select id="membership" formControlName="membership">
+          <select id="membership" formControlName="membershipId">
             <option value="" disabled>Select your membership</option>
-            <option value="premium">Premium</option>
-            <option value="standard">Standard</option>
-            <option value="basic">Basic</option>
+            @for(membership of membershipPlans; track membership.id){
+              <option [value]="membership.id">{{membership.name}}</option>
+            }
           </select>
           @if(isInvalid('membership', registrationForm)){
           <span class="error">{{ getErrorMessage('membership', registrationForm) }}</span>
@@ -88,18 +88,16 @@
         </div>
 
         <div class="checkbox-info">
-          <input type="checkbox" id="email-info" formControlName="wantsEmail">
+          <input type="checkbox" id="email-info" formControlName="allowEmail">
           <label for="email-info">I agree to receive more info from BeFit by email</label>
         </div>
 
 
         <div class="checkbox-info">
-          <input type="checkbox" id="whatsapp-info" formControlName="wantsWhatsApp">
+          <input type="checkbox" id="whatsapp-info" formControlName="allowWhatsApp">
           <label for="whatsapp-info">I agree to receive more info from BeFit by WhatsApp</label>
         </div>
       </div>
-
-
       <button class="btn-submit" [disabled]="registrationForm.invalid">Register</button>
     </form>
   </div>

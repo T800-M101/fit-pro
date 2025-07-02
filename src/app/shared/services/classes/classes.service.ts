@@ -15,7 +15,13 @@ export class ClassesService {
     return this.http.get<any>(`${this.baseUrl}/classes/get`);
   }
 
-  getScheduleByClassId(classId: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/schedules/class/${classId}`);
+  // getScheduleByClassId(classId: number): Observable<any> {
+  //   return this.http.get<any>(`${this.baseUrl}/class_session/class/${classId}`);
+  // }
+
+  getSessionsByClassId(classId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/class_sessions/class/${classId}`);
   }
 }
+
+

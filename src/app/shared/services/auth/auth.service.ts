@@ -12,13 +12,14 @@ import { environment } from '../../../../environments/environment';
 })
 export class AuthService {
   
-  private tokenKey = 'token';
+  private _tokenKey = 'token';
   private jwtHelper = new JwtHelperService();
   baseUrl = environment.apiUrl;
-
+  
+  token = signal<string | null>(this.getToken());
   userName = signal<string | null>(this.extractNameFromToken());
   authState = signal<AuthState>(this.getAuthState());
-  userRole = signal<string | null>(this.extractRoleFromToken());
+  userRole = signal<number | null>(this.extractRoleFromToken());
 
   constructor(private router: Router, private http: HttpClient) {
     this.updateAuthState();
@@ -26,16 +27,16 @@ export class AuthService {
   }
 
   saveToken(token: string): void {
-    localStorage.setItem(this.tokenKey, token);
+    localStorage.setItem(this._tokenKey, token);
     this.startTokenMonitor();
   }
 
   removeToken(): void {
-    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this._tokenKey);
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    return localStorage.getItem(this._tokenKey);
   }
 
   isTokenValid(): boolean {
@@ -54,12 +55,12 @@ export class AuthService {
     return fullName.trim().split(/\s+/)[0];
   }
 
-  extractRoleFromToken(): string | null {
+  extractRoleFromToken(): number | null {
     const token = this.getToken();
     if (!token || this.jwtHelper.isTokenExpired(token)) return null;
 
     const decoded = this.jwtHelper.decodeToken(token);
-    const role: string = decoded?.role;
+    const role: number = decoded?.role;
     return role ?? null;
   }
 
