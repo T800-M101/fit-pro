@@ -36,8 +36,8 @@
                 }
 
                 }
-                @if( authService.userRole() === Role.Employee || authService.userRole() === Role.Admin){
-                    <li><a routerLink="#" routerLinkActive="active" (click)="toggleMenu()">Dashboard</a></li>
+                @if( userRole && (userRole === Role.Admin || userRole === Role.Employee)){
+                    <li><a routerLink="/" routerLinkActive="active" (click)="toggleMenu()">Dashboard</a></li>
                 }
                 <li><a routerLink="/" routerLinkActive="active" (click)="toggleMenu()">Home</a></li>
                 <li><a routerLink="classes" routerLinkActive="active" (click)="toggleMenu()">Classes</a></li>

@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { AuthState } from './auth-enum';
+import { AuthState, Role } from './auth-enum';
 import { RegisterUserDto } from '../../../features/dto/register-user';
 import { environment } from '../../../../environments/environment';
 
@@ -19,7 +19,7 @@ export class AuthService {
   token = signal<string | null>(this.getToken());
   userName = signal<string | null>(this.extractNameFromToken());
   authState = signal<AuthState>(this.getAuthState());
-  userRole = signal<number | null>(this.extractRoleFromToken());
+  userRole = signal<string | null>(this.extractRoleFromToken());
 
   constructor(private router: Router, private http: HttpClient) {
     this.updateAuthState();
@@ -55,12 +55,13 @@ export class AuthService {
     return fullName.trim().split(/\s+/)[0];
   }
 
-  extractRoleFromToken(): number | null {
+  extractRoleFromToken(): string | null {
     const token = this.getToken();
     if (!token || this.jwtHelper.isTokenExpired(token)) return null;
 
     const decoded = this.jwtHelper.decodeToken(token);
-    const role: number = decoded?.role;
+    const role = decoded?.role;
+    console.log('ROLE', role)
     return role ?? null;
   }
 
