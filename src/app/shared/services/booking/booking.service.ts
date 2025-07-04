@@ -16,7 +16,7 @@ export class BookingService {
  
    constructor(private http: HttpClient) { }
 
-   bookHour(bookingData: Booking): Observable<any> {
+   bookClass(bookingData: Booking[]): Observable<any> {
       return this.http.post<any>(`${this.baseUrl}/bookings`, bookingData);
    }
  

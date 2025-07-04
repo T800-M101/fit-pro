@@ -48,16 +48,18 @@ export class BookClassModalComponent implements OnInit {
   }
 
 
-  pushBookingToList(booking: Booking): void {
-
+  getTimeToISO(date: string, time: string): string {
+    const combinedDateTime = dayjs(`${date} ${time}`, 'YYYY-MM-DD h:mm A');
+    return combinedDateTime.toISOString();
   }
 
-  bookHour(bookingData: any): void {
+  confirmBooking(): void {
     this.bookingService
-      .bookHour(bookingData)
+      .bookClass(this.bookingList)
       .subscribe({
         next: (response) => {
           this.toastr.success('Classes booked successfully!');
+          this.closeModal();
         },
         error: (error) => {
           this.toastr.error(error.error.message);
@@ -65,21 +67,32 @@ export class BookClassModalComponent implements OnInit {
       });
   }
 
-  getTimeToISO(date: string, time: string): string {
-    const combinedDateTime = dayjs(`${date} ${time}`, 'YYYY-MM-DD h:mm A');
-    return combinedDateTime.toISOString();
-  }
-
-  confirmBooking(): void {
-    this.bookingService.showModal.set(false);
-  }
-
   closeModal(): void {
     this.bookingService.showModal.set(false);
   }
 
-  toggleSelected(event: MouseEvent) {
-  const btn = event.target as HTMLElement;
-   btn.classList.toggle('selected');
+toggleBooking(event: MouseEvent, booking: Booking): void {
+  const exists = this.bookingList.some(
+    b =>
+      b.classId === booking.classId &&
+      b.date === booking.date &&
+      b.time === booking.time &&
+      b.userId === booking.userId
+  );
+
+  this.bookingList = exists
+    ? this.bookingList.filter(
+        b =>
+          !(
+            b.classId === booking.classId &&
+            b.date === booking.date &&
+            b.time === booking.time &&
+            b.userId === booking.userId
+          )
+      )
+    : [...this.bookingList, booking];
+ 
+    const btn = event.target as HTMLElement;
+    btn.classList.toggle('selected');
 }
 }

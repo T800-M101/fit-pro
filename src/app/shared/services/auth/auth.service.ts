@@ -61,7 +61,6 @@ export class AuthService {
 
     const decoded = this.jwtHelper.decodeToken(token);
     const role = decoded?.role;
-    console.log('ROLE', role)
     return role ?? null;
   }
 

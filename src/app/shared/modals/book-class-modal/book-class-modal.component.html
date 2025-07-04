@@ -18,8 +18,8 @@
       @for(day of schedule(); track $index){
          <div class="day">
              <h4>{{day.day}}</h4>
-             @for(session of day.sessions; track $index){
-                <button class="time-slot"  (click)="toggleSelected($event)"   >{{session.time}}</button>
+             @for(slot of day.timeSlots; track $index){
+                <button class="time-slot"  (click)="toggleBooking($event, {classId: day.classId, date: day.date, time: slot.time})">{{slot.time}}</button>
              }
          </div>
       }
@@ -30,5 +30,3 @@
     </div>
   </div>
 </div>
-
-<!-- (click)="pushBookingToList({booked_at: session.bookingTime, userId: userId, classSessionId: classId() })" -->
