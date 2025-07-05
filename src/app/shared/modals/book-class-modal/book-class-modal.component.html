@@ -15,18 +15,24 @@
       <p>Select a time slot for your class this week:</p>
     
     <div class="calendar-grid">
-      @for(day of schedule(); track $index){
-         <div class="day">
+      @for(day of schedule(); track $index; let last = $last){
+         <div class="day" [class.last-day]="last">
              <h4>{{day.day}}</h4>
-             @for(slot of day.timeSlots; track $index){
-                <button class="time-slot"  (click)="toggleBooking($event, {classId: day.classId, date: day.date, time: slot.time})">{{slot.time}}</button>
+             @for(slot of day.sessions; track $index;){
+              <div class="tooltip-wrapper" [attr.data-tooltip]="'Available spots: ' + slot.availableSpots">
+                <button 
+                  class="time-slot"  
+                  [disabled]="slot.availableSpots === 0" 
+                  (click)="toggleBooking($event, {classId: day.classId, date: day.date, time: slot.time})">{{slot.time}}
+                </button>
+                </div>
              }
          </div>
       }
     </div>
 
     <div class="modal-footer">
-      <button class="confirm-btn" (click)="confirmBooking()">Confirm Booking</button>
+      <button class="confirm-btn" (click)="confirmBooking()" [disabled]="bookingList.length === 0">Confirm Booking</button>
     </div>
   </div>
 </div>

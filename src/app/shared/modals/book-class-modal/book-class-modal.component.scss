@@ -95,6 +95,17 @@
   background-color: #502a90;
 }
 
+.time-slot:hover:not(:disabled) {
+  background-color: #388e3c;
+}
+
+.time-slot:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 // .time-slot {
 //   background-color: var(--purple); /* original purple */
 //   color: white;
@@ -129,6 +140,15 @@
   background-color: #4e278f;
 }
 
+.confirm-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.confirm-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .tooltip-bubble {
   position: relative;
   background: #fff8e1;
@@ -145,4 +165,39 @@
 
 .tooltip-bubble span {
   margin-right: 10px;
+}
+
+
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-wrapper::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 50%;
+  left: 105%; /* push tooltip to the right of the button */
+  transform: translateY(-50%);
+  background-color: #e0f0ff;
+  color: #1a1a1a;
+  padding: 6px 8px;
+  border-radius: 3px;
+  font-size: 10px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: opacity 0.15s ease-in-out;
+  z-index: 10;
+}
+
+.tooltip-wrapper:hover::after,
+.tooltip-wrapper:hover::before {
+  opacity: 1;
+}
+
+.last-day .tooltip-wrapper::after {
+  left: auto;
+  right: 105%; /* Show on left side */
 }
