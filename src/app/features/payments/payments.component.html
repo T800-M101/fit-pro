@@ -1,1 +1,17 @@
-<p>payments works!</p>
+<div class="payment-container">
+  <h2 class="title">Complete Your Membership</h2>
+
+  <p class="payment-description">
+    You’ve selected the <strong>{{ membershipName }}</strong> plan. 
+    Please complete your payment to activate your membership.
+  </p>
+
+  <div class="plan-summary">
+    <p><strong>Plan:</strong> {{ membershipName }}</p>
+    <p><strong>Duration:</strong> {{ duration }} months</p>
+    <p><strong>Price:</strong> ${{ price }}</p>
+  </div>
+
+  <button class="btn-submit" (click)="onPay()">Pay ${{ totalPrice }}</button>
+</div>
+

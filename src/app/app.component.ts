@@ -17,6 +17,7 @@ export class AppComponent {
 
   constructor(private authService: AuthService) {
    this.authService.updateAuthState();
+   console.log(this.authService.extractUserIdFromToken())
   }
 
 }

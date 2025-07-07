@@ -8,16 +8,16 @@ import { Booking } from '../../../interfaces/booking.interface';
   providedIn: 'root'
 })
 export class BookingService {
+  baseUrl = environment.apiUrl;
 
   showModal = signal<boolean>(false);
   bookedClass = signal<string>("");
 
-   baseUrl = environment.apiUrl;
  
    constructor(private http: HttpClient) { }
 
    bookClass(bookingData: Booking[]): Observable<any> {
-      return this.http.post<any>(`${this.baseUrl}/bookings`, bookingData);
+      return this.http.post<any>(`${this.baseUrl}/bookings`, bookingData, {withCredentials: true});
    }
  
 }

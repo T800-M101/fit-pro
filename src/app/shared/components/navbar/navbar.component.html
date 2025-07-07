@@ -36,14 +36,22 @@
                 }
 
                 }
-                @if( userRole && (userRole === Role.Admin || userRole === Role.Employee)){
+                @if((authService.token() && (authService.userRole() === Role.Admin || authService.userRole() === Role.Employee))){
                     <li><a routerLink="/" routerLinkActive="active" (click)="toggleMenu()">Dashboard</a></li>
                 }
                 <li><a routerLink="/" routerLinkActive="active" (click)="toggleMenu()">Home</a></li>
                 <li><a routerLink="classes" routerLinkActive="active" (click)="toggleMenu()">Classes</a></li>
-                <li><a routerLink="your-space" routerLinkActive="active" (click)="toggleMenu()">Your Space</a></li>
-                <li><a routerLink="subscription" routerLinkActive="active" (click)="toggleMenu()">Subscription</a></li>
+
+                @if(authService.token() && authService.userRole() === Role.User){
+                    <li><a routerLink="your-space" routerLinkActive="active" (click)="toggleMenu()">Your Space</a></li>
+                }
+
+                @if(authService.token() && authService.userRole() === Role.User){
+                    <li><a routerLink="subscription" routerLinkActive="active" (click)="toggleMenu()">Subscription</a></li>
+                }
+
                 <li><a routerLink="payments" routerLinkActive="active" (click)="toggleMenu()">Payments</a></li>
+                
                 @if(!authService.isTokenValid()){
                 <li><a routerLink="sign-in" routerLinkActive="active" (click)="toggleMenu()">Sign In</a></li>
                 }

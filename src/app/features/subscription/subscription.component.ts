@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -14,6 +20,8 @@ import { getErrorMessage, isInvalid } from '../../shared/utils/helpers';
 import { MembershipService } from '../../shared/services/membership/membership.service';
 import { MembershipPlan } from '../../interfaces/membershipPlan.interface';
 import { Subscription } from 'rxjs';
+import { DurationService } from '../../shared/services/duration/duration.service';
+import { Duration } from '../../interfaces/duration.interface';
 
 @Component({
   selector: 'app-subscription',
@@ -33,12 +41,13 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
   routeSubs$ = new Subscription();
   membershipSubs$ = new Subscription();
   authSubs$ = new Subscription();
-  
+  durationSubs$ = new Subscription();
+  durations!: Duration[];
 
   isInvalid = isInvalid;
   getErrorMessage = getErrorMessage;
 
-  togglePassword(msg: string) {
+  togglePassword(msg: string): void {
     if (msg === 'password') {
       const input = this.passwordInput.nativeElement;
       input.type = input.type === 'password' ? 'text' : 'password';
@@ -56,30 +65,31 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     private router: Router,
     public navigateService: NavigationService,
     private membershipService: MembershipService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private durationService: DurationService
   ) {}
 
   ngOnDestroy(): void {
-   this.routeSubs$.unsubscribe();
-   this.membershipSubs$.unsubscribe();
-   this.authSubs$.unsubscribe();
+    this.routeSubs$.unsubscribe();
+    this.membershipSubs$.unsubscribe();
+    this.authSubs$.unsubscribe();
+    this.durationSubs$.unsubscribe();
   }
 
   ngOnInit(): void {
-    
     this.routeSubs$ = this.route.queryParams.subscribe((params) => {
       if (params && params['membershipId']) {
         this.membershipId = params['membershipId'];
       }
       this.initFormGroup();
-        
-        
-        if (this.membershipId) {
-          this.registrationForm.patchValue({
-            membershipId: this.membershipId,
-          });
-        }
-        this.getMembershipPlans();
+
+      if (this.membershipId) {
+        this.registrationForm.patchValue({
+          membershipId: this.membershipId,
+        });
+      }
+      this.getMembershipPlans();
+      this.getMembershipDurations();
     });
   }
 
@@ -88,11 +98,15 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
       {
         name: ['', [Validators.required, Validators.minLength(2)]],
         email: ['', [Validators.required, Validators.email]],
-        phone: ['', [Validators.required, Validators.pattern(/^\+?[0-9]{7,15}$/)],],
+        phone: [
+          '',
+          [Validators.required, Validators.pattern(/^\+?[0-9]{7,15}$/)],
+        ],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
         gender: ['', Validators.required],
         membershipId: [this.membershipId ?? '', Validators.required],
+        durationId: ['', Validators.required],
         allowEmail: [true],
         allowWhatsApp: [true],
       },
@@ -103,13 +117,27 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
   }
 
   getMembershipPlans(): void {
-    this.membershipSubs$ = this.membershipService.getMembershipPlans().subscribe({
-      next: (data) => {
-        this.membershipPlans = data;
+    this.membershipSubs$ = this.membershipService
+      .getMembershipPlans()
+      .subscribe({
+        next: (data) => {
+          this.membershipPlans = data;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+  }
+
+  getMembershipDurations(): void {
+    this.durationSubs$ = this.durationService.getDurations().subscribe({
+      next: (data: Duration[]) => {
+        this.durationService.durations.set(data);
+        this.durations = data;
       },
       error: (error) => {
-        console.log(error)
-      }
+        console.error(error);
+      },
     });
   }
 
@@ -121,19 +149,22 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     this.authService.removeToken();
 
     this.authSubs$ = this.authService.register(createUserDto).subscribe({
-      next: (res: any) => {
-        const token = res?.token;
+      next: (response: any) => {
+        this.toastr.success('User registered successfully!');
+        const token = response?.token;
         if (token) {
           this.authService.saveToken(token);
         } else {
           console.error('No token received');
         }
-
-        this.toastr.success('User registered successfully!');
+        this.router.navigate(['/payments'], {
+          state: {
+            membershipName: response.membershipName,
+            price: response.membershipPrice,
+            durationId: this.registrationForm.value.durationId,
+          },
+        });
         this.registrationForm.reset();
-        setTimeout(() => {
-          this.router.navigate(['/classes']);
-        }, 2000);
       },
       error: (err: any) => {
         this.toastr.error('Something went wrong');

@@ -19,14 +19,16 @@ export function getErrorMessage(controlName: string, form: FormGroup): string {
         return 'Email is required';
       case 'phone':
         return 'Phone is required';
+      case 'gender':
+        return 'Please select a gender';
       case 'password':
         return 'Password is required';
       case 'confirmPassword':
         return 'Please confirm your password';
-      case 'gender':
-        return 'Please select a gender';
       case 'membership':
         return 'Please select a membership';
+      case 'duration':
+      return 'Please select a membership duration';
       default:
         return 'This field is required';
     }

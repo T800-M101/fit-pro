@@ -28,6 +28,19 @@
           }
         </div>
 
+          <div class="input-box">
+          <label for="gender">Gender</label>
+          <select id="gender" formControlName="gender">
+            <option value="" disabled>Select your gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="prefer_not_to_say">Prefer not to say</option>
+          </select>
+          @if(isInvalid('gender', registrationForm)){
+          <span class="error">{{ getErrorMessage('gender', registrationForm) }}</span>
+          }
+        </div>
+
         <div class="input-box">
           <label for="password" class="details"> Password</label>
           <div class="password-wrapper">
@@ -62,19 +75,6 @@
         </div>
 
         <div class="input-box">
-          <label for="gender">Gender</label>
-          <select id="gender" formControlName="gender">
-            <option value="" disabled>Select your gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="prefer_not_to_say">Prefer not to say</option>
-          </select>
-          @if(isInvalid('gender', registrationForm)){
-          <span class="error">{{ getErrorMessage('gender', registrationForm) }}</span>
-          }
-        </div>
-
-        <div class="input-box">
           <label for="membership">Memebership</label>
           <select id="membership" formControlName="membershipId">
             <option value="" disabled>Select your membership</option>
@@ -84,6 +84,19 @@
           </select>
           @if(isInvalid('membership', registrationForm)){
           <span class="error">{{ getErrorMessage('membership', registrationForm) }}</span>
+          }
+        </div>
+
+         <div class="input-box">
+          <label for="durationId">Duration</label>
+          <select id="durationId" formControlName="durationId">
+            <option value="" disabled>Select your membership duration</option>
+            @for(duration of durations; track duration.id){
+              <option [value]="duration.id">{{duration.name}}</option>
+            }
+          </select>
+          @if(isInvalid('duration', registrationForm)){
+          <span class="error">{{ getErrorMessage('duration', registrationForm) }}</span>
           }
         </div>
 

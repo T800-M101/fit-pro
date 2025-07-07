@@ -1,0 +1,67 @@
+<div class="content">
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+        <div class="user-details">
+            <div class="input-box">
+                <label for="name" class="details"> Name</label>
+                <input type="text" formControlName="name" placeholder="Enter your full name">
+                @if(isInvalid('name', updateForm)){
+                <span class="error">{{ getErrorMessage('name', updateForm) }}</span>
+                }
+            </div>
+
+            <div class="input-box">
+                <label for="email" class="details"> Email</label>
+                <input type="email" formControlName="email" placeholder="Enter your email">
+                @if(isInvalid('email', updateForm)){
+                <span class="error">{{ getErrorMessage('email', updateForm) }}</span>
+                }
+            </div>
+
+            <div class="input-box">
+                <label for="phone" class="details"> Phone number</label>
+                <input type="text" formControlName="phone" placeholder="Enter your phone number">
+                @if(isInvalid('password', updateForm)){
+                <span class="error">{{ getErrorMessage('phone', updateForm) }}</span>
+                }
+            </div>
+
+            <div class="input-box">
+                <label for="password" class="details"> Password</label>
+                <div class="password-wrapper">
+                    <input type="password" formControlName="password" placeholder="Enter a password"
+                        autocomplete="new-password" #passwordInput>
+                    <span class="toggle-password" (click)="togglePassword('password')">
+                        <i class="fa-solid " [class.fa-eye]="passwordInput.type !== 'password'"
+                            [class.fa-eye-slash]="passwordInput.type === 'password'"
+                            [class.active-eye]="passwordInput.type !== 'password'"></i>
+                    </span>
+                </div>
+                @if(isInvalid('password', updateForm)){<span class="error">{{ getErrorMessage('password', updateForm)
+                    }}</span>}
+            </div>
+
+            <div class="input-box">
+                <label for="confirm" class="details"> Confirm Password </label>
+                <div class="password-wrapper">
+                    <input type="password" formControlName="confirmPassword" placeholder="Confirm your password"
+                        #passwordInputConfirm>
+                    <span class="toggle-password" (click)="togglePassword('confirm')">
+                        <i class="fa-solid " [class.fa-eye]="passwordInputConfirm.type !== 'password'"
+                            [class.fa-eye-slash]="passwordInputConfirm.type === 'password'"
+                            [class.active-eye]="passwordInputConfirm.type !== 'password'"></i>
+                    </span>
+                </div>
+                @if(isInvalid('confirmPassword', updateForm)){
+                <span class="error">{{ getErrorMessage('confirmPassword', updateForm) }}</span>
+                }
+                @if (updateForm.errors?.['passwordMismatch'] &&
+                     updateForm.get('confirmPassword')?.touched &&
+                     updateForm.get('confirmPassword')?.value) {
+                <span class="error">Passwords do not match.</span>
+                }
+            </div>
+        </div>
+        <button class="btn-submit" [disabled]="updateForm.invalid">Update</button>
+    </form>
+</div>
+

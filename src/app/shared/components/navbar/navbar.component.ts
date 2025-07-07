@@ -16,7 +16,6 @@ export class NavbarComponent implements OnInit {
   isMenuOpen = signal(false);
   userName: string | null = null;
   AuthState = AuthState;
-  userRole: string | null = null;
   Role = Role;
  
 
@@ -26,7 +25,7 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userRole = this.authService.userRole();
+   
   }
 
   authState(): any {

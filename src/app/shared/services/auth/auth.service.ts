@@ -17,6 +17,7 @@ export class AuthService {
   baseUrl = environment.apiUrl;
   
   token = signal<string | null>(this.getToken());
+  userId = signal<number | null>(this.extractUserIdFromToken());
   userName = signal<string | null>(this.extractNameFromToken());
   authState = signal<AuthState>(this.getAuthState());
   userRole = signal<string | null>(this.extractRoleFromToken());
@@ -64,12 +65,12 @@ export class AuthService {
     return role ?? null;
   }
 
-  extractUserIdFromToken(): number | null {
+extractUserIdFromToken(): number | null {
   const token = this.getToken();
   if (!token || this.jwtHelper.isTokenExpired(token)) return null;
 
   const decoded = this.jwtHelper.decodeToken(token);
-  const userId = decoded?.id || decoded?.userId; // Adjust property name based on your JWT
+  const userId = decoded?.sub; // <-- FIXED: JWT uses "sub" as user ID
 
   if (!userId) return null;
 

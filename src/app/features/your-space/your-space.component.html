@@ -1,1 +1,43 @@
-<p>your space works!</p>
+
+<div class="your-space-container">
+  <div class="left-panel">
+    <!-- <div class="logo" routerLink="/"><span>Be</span> fit</div> -->
+
+    <div class="welcome-text">
+      <p><span>This is your space</span> to manage your account.</p> 
+      <p>These are the things you can do:</p>
+    </div>
+
+    <div class="select-wrapper">
+      <select (change)="handleActionChange($event)">
+        <option disabled selected>Select an option</option>
+        <option value="update-data">Update Personal Data</option>
+        <option value="payment-history">Check Payment History</option>
+        <option value="payment-method">Modify Payment Method</option>
+        <option value="membership">Change Membership</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    @if (selectedAction() === 'update-data') {
+      <app-update-personal-info />
+    }
+
+    <!-- @if (selectedAction() === 'payment-history') {
+      <app-payment-history />
+    }
+
+    @if (selectedAction() === 'payment-method') {
+      <app-payment-method />
+    }
+
+    @if (selectedAction() === 'membership') {
+      <app-change-membership />
+    } -->
+  </div>
+</div>
+
+
+
+
