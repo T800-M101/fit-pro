@@ -80,15 +80,6 @@ export class AuthService {
     return role ?? null;
   }
   
-  private extractUserIdFromToken(): number | null {
-    const decoded = this.decodeToken();
-    const userId = decoded?.sub;
-    
-    if (!userId) return null;
-    
-    return typeof userId === 'string' ? parseInt(userId, 10) : userId;
-  }
-  
   private extractMembershipStatusFromToken(): boolean {
     const decoded = this.decodeToken();
     const membership = decoded?.membershipStatus;
@@ -96,6 +87,15 @@ export class AuthService {
     return membership === true || membership === 'true';
   }
   
+  extractUserIdFromToken(): number | null {
+    const decoded = this.decodeToken();
+    const userId = decoded?.sub;
+    
+    if (!userId) return null;
+    
+    return typeof userId === 'string' ? parseInt(userId, 10) : userId;
+  }
+
   private persistToken(token: string): void {
   try {
     localStorage.setItem(this._tokenKey, token);
