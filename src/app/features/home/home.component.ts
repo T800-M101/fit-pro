@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, computed, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  computed,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CountUpComponent } from '../../shared/components/count-up/count-up.component';
 import { Router } from '@angular/router';
 import { Instructor } from '../../interfaces/instructor.interface';
@@ -24,7 +30,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   userSubs$ = new Subscription();
   membershipSubs$ = new Subscription();
 
-  shouldDisableSignup = computed(() => this.authService.isTokenValid());
+  shouldDisableSignup = computed(
+    () => this.authService.isTokenValid() || this.authService.getToken()
+  );
 
   constructor(
     private router: Router,
@@ -54,12 +62,14 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       error: (error) => console.error(error),
     });
 
-    this.membershipSubs$ =this.membershipService.getMembershipPlans().subscribe({
-      next: (response) => {
-        this.memberships = response;
-      },
-      error: (error) => console.error(error),
-    });
+    this.membershipSubs$ = this.membershipService
+      .getMembershipPlans()
+      .subscribe({
+        next: (response) => {
+          this.memberships = response;
+        },
+        error: (error) => console.error(error),
+      });
   }
 
   ngAfterViewInit() {
@@ -90,5 +100,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigate(['/subscription'], {
       queryParams: { membershipId },
     });
+  }
+
+  getImagePath(photo: string): string {
+    return `assets/${photo}`;
   }
 }

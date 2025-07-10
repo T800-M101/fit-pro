@@ -51,10 +51,14 @@ export class PaymentsComponent  {
 
   this.stripeService.createCheckoutSession(this.totalPrice, userId, this.duration).subscribe({
     next: (res) => {
-      window.location.href = res.url; // Redirect to Stripe Checkout
+      if (res.url) {
+        window.location.href = res.url; // Redirect to Stripe Checkout
+      } else {
+        console.error('No checkout URL received');
+      }
     },
     error: (err) => {
-      console.error('Stripe session error:', err);
+      console.error('Stripe session creation failed:', err);
     },
   });
 

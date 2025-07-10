@@ -30,51 +30,54 @@
 
             <ul [class.active]="isOpen()">
 
-                @switch (authService.authState()) {
-                @case (AuthState.NotRegistered) {
-                <li><a routerLink="subscription" class="btn-join" (click)="toggleMenu()">Join now!</a></li>
-                }
-
-                }
-                @if((authService.token() && (authService.userRole() === Role.Admin || authService.userRole() === Role.Employee))){
-                    <li><a routerLink="/" routerLinkActive="active" (click)="toggleMenu()">Dashboard</a></li>
-                }
+                <!-- Always show -->
                 <li><a routerLink="/" routerLinkActive="active" (click)="toggleMenu()">Home</a></li>
                 <li><a routerLink="classes" routerLinkActive="active" (click)="toggleMenu()">Classes</a></li>
 
-                @if(authService.token() && authService.userRole() === Role.User){
-                    <li><a routerLink="your-space" routerLinkActive="active" (click)="toggleMenu()">Your Space</a></li>
+                <!-- Guest only -->
+                @if (authService.isGuest()) {
+                <li><a routerLink="subscription" routerLinkActive="active" (click)="toggleMenu()">Subscription</a></li>
+                <li><a routerLink="subscription" class="btn-join" (click)="toggleMenu()">Join now!</a></li>
                 }
 
-                @if(authService.token() && authService.userRole() === Role.User){
-                    <li><a routerLink="subscription" routerLinkActive="active" (click)="toggleMenu()">Subscription</a></li>
+                <!-- Registered but not logged in -->
+                @if (authService.isLoggedOutRegistered()) {
+                <li>
+                    <a routerLink="sign-in" routerLinkActive="active" (click)="toggleMenu()">Sign In</a>
+                </li>
                 }
 
-                <li><a routerLink="payments" routerLinkActive="active" (click)="toggleMenu()">Payments</a></li>
-                
-                @if(!authService.isTokenValid()){
-                <li><a routerLink="sign-in" routerLinkActive="active" (click)="toggleMenu()">Sign In</a></li>
+                <!-- Logged in user -->
+                @if (authService.isLoggedInUser()) {
+                <li><a routerLink="your-space" routerLinkActive="active" (click)="toggleMenu()">Your Space</a></li>
+                <li><a (click)="authService.logout(); toggleMenu()" class="logout-mobile">Log out</a></li>
                 }
-                @if(authService.getAuthState()) {
-                <li><a routerLinkActive="active" (click)="authService.logout()" (click)="toggleMenu()"
-                        class="logout-mobile">Log out</a></li>
+
+                <!-- Admin or employee -->
+                @if (authService.isAdminOrEmployee()) {
+                <li><a (click)="authService.logout(); toggleMenu()" class="logout-mobile">Log out</a></li>
                 }
+
             </ul>
 
-
-            @switch(authService.authState()) {
-            @case (AuthState.NotRegistered) {
-            @if (!['/sign-in','/subscription'].includes(navigationService.url())) {
+            <!-- Desktop Auth Button -->
+            @switch (true) {
+            @case (authService.isGuest()) {
+            @if (!['/sign-in', '/subscription'].includes(navigationService.url())) {
             <a routerLink="subscription" class="btn-join-desktop">Join now!</a>
             }
             }
-            @case (AuthState.Expired) {
+            @case (authService.isLoggedOutRegistered()) {
             <a routerLink="sign-in" class="btn-join-desktop">Sign In</a>
             }
-            @case (AuthState.Authenticated) {
-            <a (click)="authService.logout()" class="logout">{{authService.userName() | titlecase }} <span>Log out</span></a>
+            @case (authService.authState() === AuthState.Authenticated) {
+            <a (click)="authService.logout()" class="logout">
+                {{ authService.userName() | titlecase }}
+                <span>Log out</span>
+            </a>
             }
             }
+
 
             <div class="menu-toggle" (click)="toggleMenu()">
                 <i class="fas fa-bars"></i>
@@ -83,4 +86,3 @@
         </div>
     </nav>
 </header>
-

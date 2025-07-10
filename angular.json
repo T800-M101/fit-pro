@@ -27,12 +27,12 @@
               {
                 "glob": "**/*",
                 "input": "src/assets",
-                "output": "/assets/"
+                "output": "./assets"
               },
               {
                 "glob": "**/*",
                 "input": "public",
-                "output": "/"
+                "output": "./"
               }
             ],
             "styles": [

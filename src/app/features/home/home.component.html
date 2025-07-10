@@ -80,7 +80,8 @@
           <div class="instructor-card">
             <div class="card-content">
               <div class="image">
-                <img [src]="instructor.photo" [alt]="instructor.name">
+             <img [src]="'/instructors/' + instructor.photo" [alt]="instructor.name" class="instructor-image">
+
               </div>
               <!-- Social media icons -->
               <div class="media-icons">
