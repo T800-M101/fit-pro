@@ -1,10 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { UpdatePersonalInfoComponent } from '../update-personal-info/update-personal-info.component';
+import { PaymentHistoryComponent } from '../payments/payment-history/payment-history.component';
 
 @Component({
   selector: 'app-your-space',
   standalone: true,
-  imports: [UpdatePersonalInfoComponent],
+  imports: [UpdatePersonalInfoComponent, PaymentHistoryComponent ],
   templateUrl: './your-space.component.html',
   styleUrl: './your-space.component.scss'
 })

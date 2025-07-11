@@ -12,6 +12,7 @@
       <select (change)="handleActionChange($event)">
         <option disabled selected>Select an option</option>
         <option value="update-data">Update Personal Data</option>
+        <option value="pay-membership">Pay Membership</option>
         <option value="payment-history">Check Payment History</option>
         <option value="payment-method">Modify Payment Method</option>
         <option value="membership">Change Membership</option>
@@ -24,11 +25,11 @@
       <app-update-personal-info />
     }
 
-    <!-- @if (selectedAction() === 'payment-history') {
+     @if (selectedAction() === 'payment-history') {
       <app-payment-history />
     }
 
-    @if (selectedAction() === 'payment-method') {
+    <!-- @if (selectedAction() === 'payment-method') {
       <app-payment-method />
     }
 

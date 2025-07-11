@@ -62,7 +62,7 @@ export class AuthService {
   }
 
   
-  private decodeToken(): any | null {
+   private decodeToken(): any | null {
     const token = this.getToken();
     if (!token || this.jwtHelper.isTokenExpired(token)) return null;
     return this.jwtHelper.decodeToken(token);
@@ -80,7 +80,7 @@ export class AuthService {
     return role ?? null;
   }
   
-  private extractMembershipStatusFromToken(): boolean {
+   private extractMembershipStatusFromToken(): boolean {
     const decoded = this.decodeToken();
     const membership = decoded?.membershipStatus;
     
@@ -110,6 +110,10 @@ export class AuthService {
 
   removeToken(): void {
     localStorage.removeItem(this._tokenKey);
+  }
+
+  removeUserRegistered(): void {
+   localStorage.removeItem(this._userRegisteredKey);
   }
 
   getToken(): string | null {
@@ -166,6 +170,7 @@ export class AuthService {
 
   logout(): void {
     this.removeToken();
+    this.removeUserRegistered();
     this.updateAuthState();
     this.router.navigate(['/']);
   }

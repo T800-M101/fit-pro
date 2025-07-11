@@ -1,0 +1,41 @@
+<div class="payment-history">
+  <h2>Payment History</h2>
+
+  @if(payments) {
+      <table class="payment-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Method</th>
+            <th>Status</th>
+            <th>Transaction ID</th>
+          </tr>
+        </thead>
+       <tbody>
+      @for (payment of payments; track payment.id) {
+        <tr>
+          <td>{{ payment.date | date: 'mediumDate' }}</td>
+          <td>{{ payment.amount | currency: 'USD' }}</td>
+          <td>{{ payment.method }}</td>
+          <td>
+            <span
+              [class.status-success]="payment.status === 'Completed'"
+              [class.status-pending]="payment.status === 'Pending'"
+              [class.status-failed]="payment.status === 'Failed'"
+            >
+              {{ payment.status }}
+            </span>
+          </td>
+          <td>{{ payment.transactionId || 'N/A' }}</td>
+        </tr>
+      }
+    </tbody>
+      </table>
+
+  } @else {
+      <p>No payment history found.</p>
+  }
+
+</div>
+

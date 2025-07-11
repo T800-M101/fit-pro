@@ -1,0 +1,63 @@
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  margin-top: 1rem;
+}
+
+thead {
+  background-color: var(--purple); 
+  color: white;
+}
+
+thead th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+tbody tr {
+  border-bottom: 1px solid #dee2e6;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa; /* light gray */
+}
+
+tbody td {
+  padding: 0.75rem 1rem;
+  vertical-align: middle;
+}
+
+/* Status badges */
+.status-success {
+  color: #198754; /* green */
+  background-color: #d1e7dd;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+.status-pending {
+  color: #ffc107; /* yellow */
+  background-color: #fff3cd;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+.status-failed {
+  color: #dc3545; /* red */
+  background-color: #f8d7da;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
